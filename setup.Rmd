@@ -16,11 +16,11 @@ Install the following software regardless of which class(es) you're taking.
 
 ### R
 
-**Install R.** You'll need R version **3.4.3** or higher.[^rversion] Download and install R for [Windows](http://cran.r-project.org/bin/windows/base/) or [Mac](http://cran.r-project.org/bin/macosx/) (download the latest R-3.x.x.pkg file for your appropriate version of Mac OS).
+**Install R.** You'll need R version **3.5.0** or higher.[^rversion] Download and install R for [Windows](http://cran.r-project.org/bin/windows/base/) or [Mac](http://cran.r-project.org/bin/macosx/) (download the latest R-3.x.x.pkg file for your appropriate version of Mac OS).
 
 ### RStudio
 
-Download and install **[RStudio Desktop](https://www.rstudio.com/products/rstudio/download/)** version >= 1.1.149.
+Download and install **[RStudio Desktop](https://www.rstudio.com/products/rstudio/download/)** version >= 1.1.456.
 
 R and RStudio are separate downloads and installations. **R** is the underlying statistical computing environment, but using R alone is no fun. **RStudio** is a graphical integrated development environment that makes using R much easier. You need R installed before you install RStudio.
 
@@ -346,7 +346,7 @@ This may produce some notes or other output, but as long as you don't get an err
 
 ### Interactive Visualization
 
-The [Interactive Visualization with JavaScript and R](r-interactive-viz.html) lesson requires installation of several R packages in addition to those mentioned above:
+The Interactive Visualization with JavaScript and R lesson requires installation of several R packages in addition to those mentioned above:
 
 ```r
 install.packages("highcharter")
@@ -371,6 +371,28 @@ library(igraph)
 ```
 
 These commands may produce some notes or other output, but as long as they work without an error message, you're good to go. If you get a message that says something like: `Error in library(packageName) : there is no package called 'packageName'`, then the required packages did not install correctly. Please do not hesitate to [email one of the instructors](people.html) _prior to the course_ if you are still having difficulty.
+
+### Text mining
+
+**Prerequisites!** This is _not_ an introductory R class. In addition to familiarity with R, this lesson also assumes familiarity with:
+
+- [Advanced data manipulating data with dplyr and `%>%`](r-dplyr-yeast.html)
+- [Data tidying with tidyr](r-tidy.html)
+- [Advanced data visualization with ggplot2](r-viz-gapminder.html)
+
+**Software setup:** Follow instructions above for [R+RStudio+Packages](#r) and [CRAN packages](#cran-packages). For this class, you'll also need several additional packages described below. If you receive an error message when trying to install any particular package, please make note of which one you had trouble with, and [email me](people.html) _prior to class_ with the command you typed and the error you received.
+
+
+```r
+install.packages("tidytext")
+```
+
+To check that these are correctly installed, first close RStudio and then reopen it and run the following:
+
+```r
+library(tidytext)
+```
+
 
 
 ### Shiny
