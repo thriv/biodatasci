@@ -452,7 +452,10 @@ gm</code></pre>
 <li><code>group_by()</code>: groups a data frame by one or more variable. Most data operations are useful done on groups defined by variables in the the dataset. The <code>group_by</code> function takes an existing data frame and converts it into a grouped data frame where <code>summarize()</code> operations are performed <em>by group</em>.</li>
 </ol>
 <p>Additionally, the <strong><code>%&gt;%</code></strong> operator allows you to “chain” operations together. Rather than nesting functions inside out, the <code>%&gt;%</code> operator allows you to write operations left-to-right, top-to-bottom. Let’s say we wanted to get the average life expectancy and GDP (not GDP per capita) for Asian countries for each year.</p>
-<p><img src="img/nest_vs_pipe_gm.png" /></p>
+<div class="figure">
+<img src="img/nest_vs_pipe_gm.png" />
+
+</div>
 <p>The <code>%&gt;%</code> would allow us to do this:</p>
 <pre class="r"><code>gm %&gt;%
   mutate(gdp=gdpPercap*pop) %&gt;%
@@ -538,11 +541,9 @@ p + geom_point() + scale_x_log10()</code></pre>
 <li>Start with the <code>ggplot()</code> function.</li>
 <li>Use the gm data.</li>
 <li>Map <code>gdpPercap</code> to the x-axis and <code>lifeExp</code> to the y-axis.</li>
-<li>Add points to the plot
-<ul>
+<li>Add points to the plot</li>
 <li>Make the points size 3</li>
 <li>Map continent onto the aesthetics of the point</li>
-</ul></li>
 <li>Use a log<sub>10</sub> scale for the x-axis.</li>
 </ul>
 <hr />
