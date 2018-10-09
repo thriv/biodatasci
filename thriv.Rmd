@@ -95,6 +95,10 @@ This session focuses on analyzing real data from a biological application - anal
 
 This lesson demonstrates how to use R and ggtree, an extension of the ggplot2 package, to visualize and annotate phylogenetic trees. This lesson does _not_ cover methods and software for _generating_ phylogenetic trees, nor does it it cover _interpreting_ phylogenies. Genome-wide sequencing allows for examination of the entire genome, and from this, many methods and software tools exist for comparative genomics using SNP- and gene-based phylogenetic analysis, either from unassembled sequencing reads, draft assemblies/contigs, or complete genome sequences. These methods are beyond the scope of this lesson.
 
+### Week 6-7e: Text mining
+
+Under development.
+
 
 <!--
 , and follow all instructions under the major headings for:
