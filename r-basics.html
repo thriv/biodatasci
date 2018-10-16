@@ -403,13 +403,13 @@ div.tocify {
 <h2>RStudio</h2>
 <p>Let’s start by learning about RStudio. <strong>R</strong> is the underlying statistical computing environment, but using R alone is no fun. <strong>RStudio</strong> is a graphical integrated development environment that makes using R much easier.</p>
 <ul>
-<li>Panes in RStudio. There are four panes, and their orientation is configurable under “Tools – Global Options.” You don’t have to do it this way, but I usually set up my window to have:
+<li><strong>Options:</strong> First, let’s change a few options. We’ll only have to do this once. Under <em>Tools… Global Options…</em>:
 <ul>
-<li>Editor in the top left</li>
-<li>Console top right</li>
-<li>Environment/history on the bottom left</li>
-<li>Plots/help on the bottom right.<br />
-</li>
+<li>Under <em>General</em>: Uncheck “Restore most recently opened project at startup”</li>
+<li>Under <em>General</em>: Uncheck “Restore .RData into workspace at startup”</li>
+<li>Under <em>General</em>: Set “Save workspace to .RData on exit:” to Never.</li>
+<li>Under <em>General</em>: Set “Save workspace to .RData on exit:” to Never.</li>
+<li>Under <em>R Markdown</em>: Uncheck “Show output inline for all R Markdown documents”</li>
 </ul></li>
 <li>Projects: first, start a new project in a new folder somewhere easy to remember. When we start reading in data it’ll be important that the <em>code and the data are in the same place.</em> Creating a project creates an Rproj file that opens R running <em>in that folder</em>. This way, when you want to read in dataset <em>whatever.txt</em>, you just tell it the filename rather than a full path. This is critical for reproducibility, and we’ll talk about that more later.</li>
 <li>Code that you type into the console is code that R executes. From here forward we will use the editor window to write a script that we can save to a file and run it again whenever we want to. We usually give it a <code>.R</code> extension, but it’s just a plain text file. If you want to send commands from your editor to the console, use <code>CMD</code>+<code>Enter</code> (<code>Ctrl</code>+<code>Enter</code> on Windows).</li>

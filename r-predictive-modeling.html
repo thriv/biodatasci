@@ -472,18 +472,18 @@ flu &lt;- read_csv(&quot;data/h7n9.csv&quot;)
 # Take a look
 flu</code></pre>
 <pre><code>## # A tibble: 134 x 8
-##    case_id date_onset date_hospitalizat… date_outcome outcome gender   age
-##    &lt;chr&gt;   &lt;date&gt;     &lt;date&gt;             &lt;date&gt;       &lt;chr&gt;   &lt;chr&gt;  &lt;int&gt;
-##  1 case_1  2013-02-19 NA                 2013-03-04   Death   m         58
-##  2 case_2  2013-02-27 2013-03-03         2013-03-10   Death   m          7
-##  3 case_3  2013-03-09 2013-03-19         2013-04-09   Death   f         11
-##  4 case_4  2013-03-19 2013-03-27         NA           &lt;NA&gt;    f         18
-##  5 case_5  2013-03-19 2013-03-30         2013-05-15   Recover f         20
-##  6 case_6  2013-03-21 2013-03-28         2013-04-26   Death   f          9
-##  7 case_7  2013-03-20 2013-03-29         2013-04-09   Death   m         54
-##  8 case_8  2013-03-07 2013-03-18         2013-03-27   Death   m         14
-##  9 case_9  2013-03-25 2013-03-25         NA           &lt;NA&gt;    m         39
-## 10 case_10 2013-03-28 2013-04-01         2013-04-03   Death   m         20
+##    case_id date_onset date_hospitaliz… date_outcome outcome gender   age
+##    &lt;chr&gt;   &lt;date&gt;     &lt;date&gt;           &lt;date&gt;       &lt;chr&gt;   &lt;chr&gt;  &lt;int&gt;
+##  1 case_1  2013-02-19 NA               2013-03-04   Death   m         58
+##  2 case_2  2013-02-27 2013-03-03       2013-03-10   Death   m          7
+##  3 case_3  2013-03-09 2013-03-19       2013-04-09   Death   f         11
+##  4 case_4  2013-03-19 2013-03-27       NA           &lt;NA&gt;    f         18
+##  5 case_5  2013-03-19 2013-03-30       2013-05-15   Recover f         20
+##  6 case_6  2013-03-21 2013-03-28       2013-04-26   Death   f          9
+##  7 case_7  2013-03-20 2013-03-29       2013-04-09   Death   m         54
+##  8 case_8  2013-03-07 2013-03-18       2013-03-27   Death   m         14
+##  9 case_9  2013-03-25 2013-03-25       NA           &lt;NA&gt;    m         39
+## 10 case_10 2013-03-28 2013-04-01       2013-04-03   Death   m         20
 ## # ... with 124 more rows, and 1 more variable: province &lt;chr&gt;</code></pre>
 </div>
 <div id="exploratory-data-analysis" class="section level3">
@@ -1104,7 +1104,7 @@ summary(modsum)</code></pre>
 <pre class="r"><code># Read in the ILI data.
 ili &lt;- read_csv(&quot;data/ilinet.csv&quot;)
 ili</code></pre>
-<pre><code>## # A tibble: 772 x 6
+<pre><code>## # A tibble: 818 x 6
 ##    week_start ilitotal total_patients fludeaths pneumoniadeaths all_deaths
 ##    &lt;date&gt;        &lt;int&gt;          &lt;dbl&gt;     &lt;int&gt;           &lt;dbl&gt;      &lt;dbl&gt;
 ##  1 2003-01-06     3260         171193        NA              NA         NA
@@ -1117,18 +1117,18 @@ ili</code></pre>
 ##  8 2003-02-24     7228         241110        NA              NA         NA
 ##  9 2003-03-03     5606         241683        NA              NA         NA
 ## 10 2003-03-10     4450         228549        NA              NA         NA
-## # ... with 762 more rows</code></pre>
-<p>We have information on ILI frequency since January 2003, but we don’t have information on death data until 2009. From here, we have data up through the end of October 2017.</p>
+## # ... with 808 more rows</code></pre>
+<p>We have information on ILI frequency since January 2003, but we don’t have information on death data until 2009. From here, we have data up through the end of September 2018.</p>
 <pre class="r"><code>tail(ili)</code></pre>
 <pre><code>## # A tibble: 6 x 6
 ##   week_start ilitotal total_patients fludeaths pneumoniadeaths all_deaths
 ##   &lt;date&gt;        &lt;int&gt;          &lt;dbl&gt;     &lt;int&gt;           &lt;dbl&gt;      &lt;dbl&gt;
-## 1 2017-09-25     9065         730058        18            2582      46334
-## 2 2017-10-02    11970         959420        13            2594      45429
-## 3 2017-10-09    12429         943839        15            2480      43237
-## 4 2017-10-16    13195         966259        21            2441      41150
-## 5 2017-10-23    14555         945007        16            2256      37616
-## 6 2017-10-30    15494         934670        24            1894      34084</code></pre>
+## 1 2018-08-20     6519         798422         9            2426      46033
+## 2 2018-08-27     7257         762601         5            2321      45679
+## 3 2018-09-03     8049         823571         4            2430      44689
+## 4 2018-09-10     9457         821290         7            2329      44279
+## 5 2018-09-17     9966         858050         7            2239      41875
+## 6 2018-09-24    11057         832495         6            1896      35305</code></pre>
 </div>
 <div id="forecasting-with-prophet" class="section level3">
 <h3>Forecasting with prophet</h3>

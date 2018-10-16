@@ -445,6 +445,8 @@ ydat</code></pre>
 </div>
 <div id="inspecting-data.frame-objects" class="section level2">
 <h2>Inspecting data.frame objects</h2>
+<div id="built-in-functions" class="section level3">
+<h3>Built-in functions</h3>
 <p>There are several built-in functions that are useful for working with data frames.</p>
 <ul>
 <li>Content:
@@ -534,6 +536,43 @@ ydat</code></pre>
 ##  3rd Qu.: 0.29                                        
 ##  Max.   : 6.64</code></pre>
 </div>
+<div id="other-packages" class="section level3">
+<h3>Other packages</h3>
+<p>The <code>glimpse()</code> function is available once you load the <strong>dplyr</strong> library, and it’s like <code>str()</code> but its display is a little bit better.</p>
+<pre class="r"><code>glimpse(ydat)</code></pre>
+<pre><code>## Observations: 198,430
+## Variables: 7
+## $ symbol          &lt;chr&gt; &quot;SFB2&quot;, NA, &quot;QRI7&quot;, &quot;CFT2&quot;, &quot;SSO2&quot;, &quot;PSP2&quot;, &quot;R...
+## $ systematic_name &lt;chr&gt; &quot;YNL049C&quot;, &quot;YNL095C&quot;, &quot;YDL104C&quot;, &quot;YLR115W&quot;, &quot;Y...
+## $ nutrient        &lt;chr&gt; &quot;Glucose&quot;, &quot;Glucose&quot;, &quot;Glucose&quot;, &quot;Glucose&quot;, &quot;G...
+## $ rate            &lt;dbl&gt; 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05...
+## $ expression      &lt;dbl&gt; -0.24, 0.28, -0.02, -0.33, 0.05, -0.69, -0.55,...
+## $ bp              &lt;chr&gt; &quot;ER to Golgi transport&quot;, &quot;biological process u...
+## $ mf              &lt;chr&gt; &quot;molecular function unknown&quot;, &quot;molecular funct...</code></pre>
+<p>The <strong>skimr</strong> package has a nice function, skim, that provides summary statistics the user can skim quickly to understand your data. You can install it with <code>install.packages(&quot;skimr&quot;)</code> if you don’t have it already.</p>
+<pre class="r"><code>library(skimr)
+skim(ydat)</code></pre>
+<pre><code>## Skim summary statistics
+##  n obs: 198430 
+##  n variables: 7 
+## 
+## ── Variable type:character ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+##         variable missing complete      n min max empty n_unique
+##               bp    7663   190767 198430   7  82     0      880
+##               mf    7663   190767 198430  11 125     0     1085
+##         nutrient       0   198430 198430   6   9     0        6
+##           symbol   47250   151180 198430   2   9     0     4210
+##  systematic_name       0   198430 198430   5   9     0     5536
+## 
+## ── Variable type:numeric ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+##    variable missing complete      n   mean    sd    p0   p25 p50  p75 p100
+##  expression       0   198430 198430 0.0034 0.67  -6.5  -0.29 0   0.29 6.64
+##        rate       0   198430 198430 0.18   0.085  0.05  0.1  0.2 0.25 0.3 
+##      hist
+##  ▁▁▁▇▆▁▁▁
+##  ▇▇▁▇▇▁▇▇</code></pre>
+</div>
+</div>
 <div id="accessing-variables-subsetting-data-frames" class="section level2">
 <h2>Accessing variables &amp; subsetting data frames</h2>
 <p>We can access individual variables within a data frame using the <code>$</code> operator, e.g., <code>mydataframe$specificVariable</code>. Let’s print out all the gene names in the data. Then let’s calculate the average expression across all conditions, all genes (using the built-in <code>mean()</code> function).</p>
@@ -598,181 +637,181 @@ mean(ydat$expression)</code></pre>
 <table>
 <thead>
 <tr class="header">
-<th align="left">nutrient</th>
-<th align="left">symbol</th>
-<th align="right">mean</th>
-<th align="right">sd</th>
-<th align="right">r</th>
+<th align="center">nutrient</th>
+<th align="center">symbol</th>
+<th align="center">mean</th>
+<th align="center">sd</th>
+<th align="center">r</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Ammonia</td>
-<td align="left">LEU1</td>
-<td align="right">-0.82</td>
-<td align="right">0.39</td>
-<td align="right">0.66</td>
+<td align="center">Ammonia</td>
+<td align="center">LEU1</td>
+<td align="center">-0.82</td>
+<td align="center">0.39</td>
+<td align="center">0.66</td>
 </tr>
 <tr class="even">
-<td align="left">Ammonia</td>
-<td align="left">LEU2</td>
-<td align="right">-0.54</td>
-<td align="right">0.38</td>
-<td align="right">-0.19</td>
+<td align="center">Ammonia</td>
+<td align="center">LEU2</td>
+<td align="center">-0.54</td>
+<td align="center">0.38</td>
+<td align="center">-0.19</td>
 </tr>
 <tr class="odd">
-<td align="left">Ammonia</td>
-<td align="left">LEU4</td>
-<td align="right">-0.37</td>
-<td align="right">0.56</td>
-<td align="right">-0.67</td>
+<td align="center">Ammonia</td>
+<td align="center">LEU4</td>
+<td align="center">-0.37</td>
+<td align="center">0.56</td>
+<td align="center">-0.67</td>
 </tr>
 <tr class="even">
-<td align="left">Ammonia</td>
-<td align="left">LEU9</td>
-<td align="right">-1.01</td>
-<td align="right">0.64</td>
-<td align="right">0.87</td>
+<td align="center">Ammonia</td>
+<td align="center">LEU9</td>
+<td align="center">-1.01</td>
+<td align="center">0.64</td>
+<td align="center">0.87</td>
 </tr>
 <tr class="odd">
-<td align="left">Glucose</td>
-<td align="left">LEU1</td>
-<td align="right">-0.55</td>
-<td align="right">0.41</td>
-<td align="right">0.98</td>
+<td align="center">Glucose</td>
+<td align="center">LEU1</td>
+<td align="center">-0.55</td>
+<td align="center">0.41</td>
+<td align="center">0.98</td>
 </tr>
 <tr class="even">
-<td align="left">Glucose</td>
-<td align="left">LEU2</td>
-<td align="right">-0.39</td>
-<td align="right">0.33</td>
-<td align="right">0.90</td>
+<td align="center">Glucose</td>
+<td align="center">LEU2</td>
+<td align="center">-0.39</td>
+<td align="center">0.33</td>
+<td align="center">0.90</td>
 </tr>
 <tr class="odd">
-<td align="left">Glucose</td>
-<td align="left">LEU4</td>
-<td align="right">1.09</td>
-<td align="right">1.01</td>
-<td align="right">-0.97</td>
+<td align="center">Glucose</td>
+<td align="center">LEU4</td>
+<td align="center">1.09</td>
+<td align="center">1.01</td>
+<td align="center">-0.97</td>
 </tr>
 <tr class="even">
-<td align="left">Glucose</td>
-<td align="left">LEU9</td>
-<td align="right">-0.16</td>
-<td align="right">0.35</td>
-<td align="right">0.35</td>
+<td align="center">Glucose</td>
+<td align="center">LEU9</td>
+<td align="center">-0.16</td>
+<td align="center">0.35</td>
+<td align="center">0.35</td>
 </tr>
 <tr class="odd">
-<td align="left">Leucine</td>
-<td align="left">LEU1</td>
-<td align="right">2.70</td>
-<td align="right">1.08</td>
-<td align="right">-0.95</td>
+<td align="center">Leucine</td>
+<td align="center">LEU1</td>
+<td align="center">2.70</td>
+<td align="center">1.08</td>
+<td align="center">-0.95</td>
 </tr>
 <tr class="even">
-<td align="left">Leucine</td>
-<td align="left">LEU2</td>
-<td align="right">0.28</td>
-<td align="right">1.16</td>
-<td align="right">-0.97</td>
+<td align="center">Leucine</td>
+<td align="center">LEU2</td>
+<td align="center">0.28</td>
+<td align="center">1.16</td>
+<td align="center">-0.97</td>
 </tr>
 <tr class="odd">
-<td align="left">Leucine</td>
-<td align="left">LEU4</td>
-<td align="right">0.80</td>
-<td align="right">1.06</td>
-<td align="right">-0.97</td>
+<td align="center">Leucine</td>
+<td align="center">LEU4</td>
+<td align="center">0.80</td>
+<td align="center">1.06</td>
+<td align="center">-0.97</td>
 </tr>
 <tr class="even">
-<td align="left">Leucine</td>
-<td align="left">LEU9</td>
-<td align="right">0.39</td>
-<td align="right">0.18</td>
-<td align="right">-0.77</td>
+<td align="center">Leucine</td>
+<td align="center">LEU9</td>
+<td align="center">0.39</td>
+<td align="center">0.18</td>
+<td align="center">-0.77</td>
 </tr>
 <tr class="odd">
-<td align="left">Phosphate</td>
-<td align="left">LEU1</td>
-<td align="right">-0.43</td>
-<td align="right">0.27</td>
-<td align="right">0.95</td>
+<td align="center">Phosphate</td>
+<td align="center">LEU1</td>
+<td align="center">-0.43</td>
+<td align="center">0.27</td>
+<td align="center">0.95</td>
 </tr>
 <tr class="even">
-<td align="left">Phosphate</td>
-<td align="left">LEU2</td>
-<td align="right">-0.26</td>
-<td align="right">0.19</td>
-<td align="right">0.70</td>
+<td align="center">Phosphate</td>
+<td align="center">LEU2</td>
+<td align="center">-0.26</td>
+<td align="center">0.19</td>
+<td align="center">0.70</td>
 </tr>
 <tr class="odd">
-<td align="left">Phosphate</td>
-<td align="left">LEU4</td>
-<td align="right">-0.99</td>
-<td align="right">0.11</td>
-<td align="right">0.24</td>
+<td align="center">Phosphate</td>
+<td align="center">LEU4</td>
+<td align="center">-0.99</td>
+<td align="center">0.11</td>
+<td align="center">0.24</td>
 </tr>
 <tr class="even">
-<td align="left">Phosphate</td>
-<td align="left">LEU9</td>
-<td align="right">-1.12</td>
-<td align="right">0.53</td>
-<td align="right">0.90</td>
+<td align="center">Phosphate</td>
+<td align="center">LEU9</td>
+<td align="center">-1.12</td>
+<td align="center">0.53</td>
+<td align="center">0.90</td>
 </tr>
 <tr class="odd">
-<td align="left">Sulfate</td>
-<td align="left">LEU1</td>
-<td align="right">-1.17</td>
-<td align="right">0.34</td>
-<td align="right">0.98</td>
+<td align="center">Sulfate</td>
+<td align="center">LEU1</td>
+<td align="center">-1.17</td>
+<td align="center">0.34</td>
+<td align="center">0.98</td>
 </tr>
 <tr class="even">
-<td align="left">Sulfate</td>
-<td align="left">LEU2</td>
-<td align="right">-0.96</td>
-<td align="right">0.30</td>
-<td align="right">0.57</td>
+<td align="center">Sulfate</td>
+<td align="center">LEU2</td>
+<td align="center">-0.96</td>
+<td align="center">0.30</td>
+<td align="center">0.57</td>
 </tr>
 <tr class="odd">
-<td align="left">Sulfate</td>
-<td align="left">LEU4</td>
-<td align="right">-0.24</td>
-<td align="right">0.43</td>
-<td align="right">-0.60</td>
+<td align="center">Sulfate</td>
+<td align="center">LEU4</td>
+<td align="center">-0.24</td>
+<td align="center">0.43</td>
+<td align="center">-0.60</td>
 </tr>
 <tr class="even">
-<td align="left">Sulfate</td>
-<td align="left">LEU9</td>
-<td align="right">-1.24</td>
-<td align="right">0.55</td>
-<td align="right">0.99</td>
+<td align="center">Sulfate</td>
+<td align="center">LEU9</td>
+<td align="center">-1.24</td>
+<td align="center">0.55</td>
+<td align="center">0.99</td>
 </tr>
 <tr class="odd">
-<td align="left">Uracil</td>
-<td align="left">LEU1</td>
-<td align="right">-0.74</td>
-<td align="right">0.73</td>
-<td align="right">0.89</td>
+<td align="center">Uracil</td>
+<td align="center">LEU1</td>
+<td align="center">-0.74</td>
+<td align="center">0.73</td>
+<td align="center">0.89</td>
 </tr>
 <tr class="even">
-<td align="left">Uracil</td>
-<td align="left">LEU2</td>
-<td align="right">0.18</td>
-<td align="right">0.13</td>
-<td align="right">-0.07</td>
+<td align="center">Uracil</td>
+<td align="center">LEU2</td>
+<td align="center">0.18</td>
+<td align="center">0.13</td>
+<td align="center">-0.07</td>
 </tr>
 <tr class="odd">
-<td align="left">Uracil</td>
-<td align="left">LEU4</td>
-<td align="right">-0.65</td>
-<td align="right">0.44</td>
-<td align="right">0.77</td>
+<td align="center">Uracil</td>
+<td align="center">LEU4</td>
+<td align="center">-0.65</td>
+<td align="center">0.44</td>
+<td align="center">0.77</td>
 </tr>
 <tr class="even">
-<td align="left">Uracil</td>
-<td align="left">LEU9</td>
-<td align="right">-1.02</td>
-<td align="right">0.91</td>
-<td align="right">0.94</td>
+<td align="center">Uracil</td>
+<td align="center">LEU9</td>
+<td align="center">-1.02</td>
+<td align="center">0.91</td>
+<td align="center">0.94</td>
 </tr>
 </tbody>
 </table>
