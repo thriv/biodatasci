@@ -18,11 +18,12 @@ This section introduces the R environment and some of the most basic funcionalit
 
 Let's start by learning about RStudio. **R** is the underlying statistical computing environment, but using R alone is no fun. **RStudio** is a graphical integrated development environment that makes using R much easier.
 
-- Panes in RStudio. There are four panes, and their orientation is configurable under "Tools -- Global Options." You don't have to do it this way, but I usually set up my window to have:
-    - Editor in the top left
-    - Console top right
-    - Environment/history on the bottom left
-    - Plots/help on the bottom right.  
+- **Options:** First, let's change a few options. We'll only have to do this once. Under _Tools... Global Options..._:
+    - Under _General_: Uncheck "Restore most recently opened project at startup"
+    - Under _General_: Uncheck "Restore .RData into workspace at startup"
+    - Under _General_: Set "Save workspace to .RData on exit:" to Never.
+    - Under _General_: Set "Save workspace to .RData on exit:" to Never.
+    - Under _R Markdown_: Uncheck "Show output inline for all R Markdown documents"
 - Projects: first, start a new project in a new folder somewhere easy to remember. When we start reading in data it'll be important that the _code and the data are in the same place._ Creating a project creates an Rproj file that opens R running _in that folder_. This way, when you want to read in dataset _whatever.txt_, you just tell it the filename rather than a full path. This is critical for reproducibility, and we'll talk about that more later.
 - Code that you type into the console is code that R executes. From here forward we will use the editor window to write a script that we can save to a file and run it again whenever we want to. We usually give it a `.R` extension, but it's just a plain text file. If you want to send commands from your editor to the console, use `CMD`+`Enter` (`Ctrl`+`Enter` on Windows).
 - Anything after a `#` sign is a comment. Use them liberally to *comment your code*.
