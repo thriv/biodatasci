@@ -99,7 +99,7 @@ theme_set(theme_bw(base_size=16) + theme(strip.background = element_blank()))
 # ilidata <- ili %>%
 #   left_join(pi, by="week_start") %>%
 #   filter(!is.na(week_start)) %>%
-#   filter(week_start>="2003-01-01" & week_start<="2017-10-31")
+#   filter(week_start>="2003-01-01" & week_start<="2018-09-30")
 # 
 # ilidata %>% write_csv(here::here("data", "ilinet.csv"))
 ```
@@ -766,7 +766,7 @@ ili <- read_csv("data/ilinet.csv")
 ili
 ```
 
-We have information on ILI frequency since January 2003, but we don't have information on death data until 2009. From here, we have data up through the end of October 2017.
+We have information on ILI frequency since January 2003, but we don't have information on death data until 2009. From here, we have data up through the end of September 2018.
 
 ```{r}
 tail(ili)
