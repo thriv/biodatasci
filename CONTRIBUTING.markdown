@@ -73,6 +73,7 @@ install.packages("rmarkdown")
 install.packages("survminer")
 install.packages("Tmisc")
 install.packages("purrr")
+install.packages("skimr")
 install.packages("tidytext")
 # Needed for predictive analytics / forecasting
 install.packages("caret", dependencies = c("Depends", "Suggests"))
