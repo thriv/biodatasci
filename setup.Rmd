@@ -236,6 +236,30 @@ library(prophet)
 > _(check back later)_
 
 
+
+### Text mining
+
+**Prerequisites!** This is _not_ an introductory R class. In addition to familiarity with R, this lesson also assumes familiarity with:
+
+- [Advanced data manipulating data with dplyr and `%>%`](r-dplyr-yeast.html)
+- [Data tidying with tidyr](r-tidy.html)
+- [Advanced data visualization with ggplot2](r-viz-gapminder.html)
+
+**Software setup:** Follow instructions above for [R+RStudio+Packages](#r) and [CRAN packages](#cran-packages). For this class, you'll also need several additional packages described below. If you receive an error message when trying to install any particular package, please make note of which one you had trouble with, and [email me](people.html) _prior to class_ with the command you typed and the error you received.
+
+
+```r
+install.packages("tidytext")
+```
+
+To check that these are correctly installed, first close RStudio and then reopen it and run the following:
+
+```r
+library(tidytext)
+```
+
+
+
 ### RNA-seq
 
 **Prerequisites!** This is _not_ an introductory R class. _This lesson assumes a [basic familiarity with R](r-basics.html), [data frames](r-dataframes.html), [manipulating data with dplyr and `%>%`](r-dplyr-yeast.html), and [data visualization with ggplot2](r-viz-gapminder.html)._
@@ -344,6 +368,8 @@ This may produce some notes or other output, but as long as you don't get an err
 
 
 
+<!--
+
 ### Interactive Visualization
 
 The Interactive Visualization with JavaScript and R lesson requires installation of several R packages in addition to those mentioned above:
@@ -372,28 +398,10 @@ library(igraph)
 
 These commands may produce some notes or other output, but as long as they work without an error message, you're good to go. If you get a message that says something like: `Error in library(packageName) : there is no package called 'packageName'`, then the required packages did not install correctly. Please do not hesitate to [email one of the instructors](people.html) _prior to the course_ if you are still having difficulty.
 
-### Text mining
-
-**Prerequisites!** This is _not_ an introductory R class. In addition to familiarity with R, this lesson also assumes familiarity with:
-
-- [Advanced data manipulating data with dplyr and `%>%`](r-dplyr-yeast.html)
-- [Data tidying with tidyr](r-tidy.html)
-- [Advanced data visualization with ggplot2](r-viz-gapminder.html)
-
-**Software setup:** Follow instructions above for [R+RStudio+Packages](#r) and [CRAN packages](#cran-packages). For this class, you'll also need several additional packages described below. If you receive an error message when trying to install any particular package, please make note of which one you had trouble with, and [email me](people.html) _prior to class_ with the command you typed and the error you received.
+-->
 
 
-```r
-install.packages("tidytext")
-```
-
-To check that these are correctly installed, first close RStudio and then reopen it and run the following:
-
-```r
-library(tidytext)
-```
-
-
+<!--
 
 ### Shiny
 
@@ -415,7 +423,7 @@ library(lubridate)
 
 These commands may produce some notes or other output, but as long as they work without an error message, you're good to go. If you get a message that says something like: `Error in library(packageName) : there is no package called 'packageName'`, then the required packages did not install correctly. Please do not hesitate to [email one of the instructors](people.html) _prior to the course_ if you are still having difficulty.
 
-
+-->
 
 ----
 
