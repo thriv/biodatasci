@@ -2,8 +2,6 @@
 title: "THRIV Biomedical Data Science 2018"
 ---
 
-<mark>This page is under active development. Check back later.</mark>
-
 ## General Information
 
 **_Instructor_: Stephen Turner**&nbsp;
@@ -57,7 +55,7 @@ After installing and testing the software we'll be using, please download the da
 
 ## Course Schedule
 
-<mark>(Subject to change)</mark>
+<mark>(Under development and subject to change)</mark>
 
 ### Week 1: Intro to R
 
