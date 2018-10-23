@@ -360,6 +360,12 @@ div.tocify {
     <li>
       <a href="r-dataframes.html">Data Frames</a>
     </li>
+    <li>
+      <a href="r-dplyr-yeast.html">Data Manipulation</a>
+    </li>
+    <li>
+      <a href="r-tidy.html">Tidying data</a>
+    </li>
   </ul>
 </li>
       </ul>
@@ -561,6 +567,19 @@ library(prophet)</code></pre>
 <p><em>(check back later)</em></p>
 </blockquote>
 </div>
+<div id="text-mining" class="section level3">
+<h3>Text mining</h3>
+<p><strong>Prerequisites!</strong> This is <em>not</em> an introductory R class. In addition to familiarity with R, this lesson also assumes familiarity with:</p>
+<ul>
+<li><a href="r-dplyr-yeast.html">Advanced data manipulating data with dplyr and <code>%&gt;%</code></a></li>
+<li><a href="r-tidy.html">Data tidying with tidyr</a></li>
+<li><a href="r-viz-gapminder.html">Advanced data visualization with ggplot2</a></li>
+</ul>
+<p><strong>Software setup:</strong> Follow instructions above for <a href="#r">R+RStudio+Packages</a> and <a href="#cran-packages">CRAN packages</a>. For this class, you’ll also need several additional packages described below. If you receive an error message when trying to install any particular package, please make note of which one you had trouble with, and <a href="people.html">email me</a> <em>prior to class</em> with the command you typed and the error you received.</p>
+<pre class="r"><code>install.packages(&quot;tidytext&quot;)</code></pre>
+<p>To check that these are correctly installed, first close RStudio and then reopen it and run the following:</p>
+<pre class="r"><code>library(tidytext)</code></pre>
+</div>
 <div id="rna-seq" class="section level3">
 <h3>RNA-seq</h3>
 <p><strong>Prerequisites!</strong> This is <em>not</em> an introductory R class. <em>This lesson assumes a <a href="r-basics.html">basic familiarity with R</a>, <a href="r-dataframes.html">data frames</a>, <a href="r-dplyr-yeast.html">manipulating data with dplyr and <code>%&gt;%</code></a>, and <a href="r-viz-gapminder.html">data visualization with ggplot2</a>.</em></p>
@@ -639,51 +658,60 @@ library(Biostrings)</code></pre>
 <li>Amino acid sequences of flu samples in the data above: <a href="data/flu_aasequence.fasta">flu_aasequence.fasta</a></li>
 </ul>
 <p><strong>Recommended reading:</strong> This lesson does <em>not</em> cover methods and software for <em>generating</em> phylogenetic trees, nor does it it cover <em>interpreting</em> phylogenies. <strong><a href="http://epidemic.bio.ed.ac.uk/how_to_read_a_phylogeny">Here’s a quick primer on how to read a phylogeny</a></strong> that you should review prior to this lesson, but it is by no means extensive. Genome-wide sequencing allows for examination of the entire genome, and from this, many methods and software tools exist for comparative genomics using SNP- and gene-based phylogenetic analysis, either from unassembled sequencing reads, draft assemblies/contigs, or complete genome sequences. These methods are beyond the scope of this lesson.</p>
-</div>
-<div id="interactive-visualization" class="section level3">
-<h3>Interactive Visualization</h3>
-<p>The Interactive Visualization with JavaScript and R lesson requires installation of several R packages in addition to those mentioned above:</p>
-<pre class="r"><code>install.packages(&quot;highcharter&quot;)
-install.packages(&quot;d3heatmap&quot;)
-install.packages(&quot;leaflet&quot;)
-install.packages(&quot;visNetwork&quot;)
-install.packages(&quot;jsonlite&quot;)
-install.packages(&quot;threejs&quot;)
-install.packages(&quot;igraph&quot;)</code></pre>
-<p>To check that these are correctly installed, first close RStudio and then reopen it and run the following:</p>
-<pre class="r"><code>library(highcharter)
+<!--
+
+### Interactive Visualization
+
+The Interactive Visualization with JavaScript and R lesson requires installation of several R packages in addition to those mentioned above:
+
+```r
+install.packages("highcharter")
+install.packages("d3heatmap")
+install.packages("leaflet")
+install.packages("visNetwork")
+install.packages("jsonlite")
+install.packages("threejs")
+install.packages("igraph")
+```
+
+To check that these are correctly installed, first close RStudio and then reopen it and run the following:
+
+```r
+library(highcharter)
 library(d3heatmap)
 library(leaflet)
 library(visNetwork)
 library(jsonlite)
 library(threejs)
-library(igraph)</code></pre>
-<p>These commands may produce some notes or other output, but as long as they work without an error message, you’re good to go. If you get a message that says something like: <code>Error in library(packageName) : there is no package called 'packageName'</code>, then the required packages did not install correctly. Please do not hesitate to <a href="people.html">email one of the instructors</a> <em>prior to the course</em> if you are still having difficulty.</p>
-</div>
-<div id="text-mining" class="section level3">
-<h3>Text mining</h3>
-<p><strong>Prerequisites!</strong> This is <em>not</em> an introductory R class. In addition to familiarity with R, this lesson also assumes familiarity with:</p>
-<ul>
-<li><a href="r-dplyr-yeast.html">Advanced data manipulating data with dplyr and <code>%&gt;%</code></a></li>
-<li><a href="r-tidy.html">Data tidying with tidyr</a></li>
-<li><a href="r-viz-gapminder.html">Advanced data visualization with ggplot2</a></li>
-</ul>
-<p><strong>Software setup:</strong> Follow instructions above for <a href="#r">R+RStudio+Packages</a> and <a href="#cran-packages">CRAN packages</a>. For this class, you’ll also need several additional packages described below. If you receive an error message when trying to install any particular package, please make note of which one you had trouble with, and <a href="people.html">email me</a> <em>prior to class</em> with the command you typed and the error you received.</p>
-<pre class="r"><code>install.packages(&quot;tidytext&quot;)</code></pre>
-<p>To check that these are correctly installed, first close RStudio and then reopen it and run the following:</p>
-<pre class="r"><code>library(tidytext)</code></pre>
-</div>
-<div id="shiny" class="section level3">
-<h3>Shiny</h3>
-<p>The <a href="r-shiny.html">Building Shiny Web Apps in R</a> lesson requires installation of several R packages in addition to those mentioned above:</p>
-<pre class="r"><code>install.packages(&quot;shiny&quot;)
-install.packages(&quot;shinythemes&quot;)
-install.packages(&quot;lubridate&quot;)</code></pre>
-<p>To check that these are correctly installed, first close RStudio and then reopen it and run the following:</p>
-<pre class="r"><code>library(shiny)
+library(igraph)
+```
+
+These commands may produce some notes or other output, but as long as they work without an error message, you're good to go. If you get a message that says something like: `Error in library(packageName) : there is no package called 'packageName'`, then the required packages did not install correctly. Please do not hesitate to [email one of the instructors](people.html) _prior to the course_ if you are still having difficulty.
+
+-->
+<!--
+
+### Shiny
+
+The [Building Shiny Web Apps in R](r-shiny.html) lesson requires installation of several R packages in addition to those mentioned above:
+
+```r
+install.packages("shiny")
+install.packages("shinythemes")
+install.packages("lubridate")
+```
+
+To check that these are correctly installed, first close RStudio and then reopen it and run the following:
+
+```r
+library(shiny)
 library(shinythemes)
-library(lubridate)</code></pre>
-<p>These commands may produce some notes or other output, but as long as they work without an error message, you’re good to go. If you get a message that says something like: <code>Error in library(packageName) : there is no package called 'packageName'</code>, then the required packages did not install correctly. Please do not hesitate to <a href="people.html">email one of the instructors</a> <em>prior to the course</em> if you are still having difficulty.</p>
+library(lubridate)
+```
+
+These commands may produce some notes or other output, but as long as they work without an error message, you're good to go. If you get a message that says something like: `Error in library(packageName) : there is no package called 'packageName'`, then the required packages did not install correctly. Please do not hesitate to [email one of the instructors](people.html) _prior to the course_ if you are still having difficulty.
+
+-->
 <hr />
 <hr />
 </div>
