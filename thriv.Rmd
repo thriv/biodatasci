@@ -61,39 +61,93 @@ After installing and testing the software we'll be using, please download the da
 
 This novice-level introduction is directed toward life scientists with little to no experience with statistical computing or bioinformatics. This interactive introduction will introduce the R statistical computing environment. The first part of this workshop will demonstrate very basic functionality in R, including functions, functions, vectors, creating variables, getting help, filtering, data frames, plotting, and reading/writing files.
 
+> **Learning Objectives**
+> 
+> - Become familiar with the RStudio interface and project management using RStudio
+> - Using R scripts to make analyses reproducible
+> - Perform basic arithmetic operations in R
+> - Using functions, creating variables, getting help
+> - Installing and loading R packages
+> - Importing and inspecting data
+
 ### Week 2: Advanced Data Manipulation with R
 
 Data analysis involves a large amount of janitor work -- munging and cleaning data to facilitate downstream data analysis. This session assumes a basic familiarity with R and covers tools and techniques for advanced data manipulation. It will cover data cleaning and "tidy data," and will introduce R packages that enable data manipulation, analysis, and visualization using split-apply-combine strategies. Upon completing this lesson, students will be able to use the _dplyr_ package in R to effectively manipulate and conditionally compute summary statistics over subsets of a "big" dataset containing many observations.
+
+> **Learning Objectives**
+> 
+> - Employ the `filter` operation to return only rows of data meeting a condition
+> - Employ the `select` function to subset data including only columns of interest
+> - Employ the `mutate` function to apply other chosen functions to existing columns and create new columns of data
+> - Employ the `arrange` function to sort data by columns of interest
+> - Use the `group_by` and `summarize` functions in combination to perform summary and statistical analyses over subgroupings of data
+> - Employ the 'pipe' operator, `%>%`, to link together a sequence of functions
+> - Reformat and reshape "messy" wide data to a tidy format using functions from the tidyr package
 
 ### Week 3: Advanced Data Visualization with R and ggplot2
 
 This session will cover fundamental concepts for creating effective data visualization and will introduce tools and techniques for visualizing large, high-dimensional data using R. We will review fundamental concepts for visually displaying quantitative information, such as using series of small multiples, avoiding "chart-junk," and maximizing the data-ink ratio. After briefly covering data visualization using base R graphics, we will introduce the _ggplot2_ package for advanced high-dimensional visualization. We will cover the grammar of graphics (geoms, aesthetics, stats, and faceting), and using ggplot2 to create plots layer-by-layer. Upon completing this lesson, students will be able to use R to explore a high-dimensional dataset by faceting and scaling arbitrarily complex plots in small multiples.
 
+> **Learning Objectives**
+> 
+> - Understand the grammar of graphics, and about building a plot layer by layer
+> - Map features of the data to aesthetics of a plot
+> - Rescale data for more effective visualization
+> - Create typical visualizations, such as scatter plots, histograms, density plots, boxplots, and their alternatives.
+> - Faceting plots to show visualizations in small multiples
+> - Creating publication-ready plots and using themes
+
 ### Week 4 / take-home (?): Reproducible Research & Dynamic Documents
 
 Contemporary life sciences research is plagued by reproducibility issues. This session covers some of the barriers to reproducible research and how to start to address some of those problems during the data management and analysis phases of the research life cycle. In this session we will cover using R and dynamic document generation with RMarkdown and RStudio to weave together reporting text with executable R code to automatically generate reports in the form of PDF, Word, or HTML documents.
+
+> **Learning Objectives**
+> 
+> - Understand the benefits of using dynamic documentation for reproducible research
+> - Using markdown as a markup / formatting language
+> - Embedding R code in an RMarkdown document
+> - Compiling Rmarkdown to an HTML or PDF report
 
 ### Week 4: Essential Statistics
 
 This session will provide hands-on instruction and exercises covering basic statistical analysis in R. This will cover descriptive statistics, t-tests, linear models, chi-square, clustering, dimensionality reduction, and resampling strategies. We will also cover methods for "tidying" model results for downstream visualization and summarization.
 
-### Week 5-7a: Survival Analysis
+> **Learning Objectives**
+> 
+> - Using exploratory data analysis and descriptive statistics to get a "feel" for the data you are working with
+> - Implementing statistical tests for continuous outcomes in R: t-tests, ANOVA, simple linear regression, and multiple linear regression
+> - Implementing statistical tests for categorical outcomes in R: chi-square tests, fisher exact tests, logistic regression
+> - Perform power and sample size analysis using R
+> - "Tidying" the results of statistical analysis
+
+### Week 5: Survival Analysis
 
 This session will provide hands-on instruction and exercises covering survival analysis using R. The data for parts of this session will come from The Cancer Genome Atlas (TCGA), where we will also cover programmatic access to TCGA through Bioconductor.
 
-### Week 5-7b: Predictive Modeling & Forecasting
+> **Learning Objectives**
+> 
+> - Learn the meaning of terms used in survival analysis: hazard, survival function, Kaplan-Meier curve, censoring, and proportional hazards
+> - Constructing a survival table in R
+> - Using the survminer package to create Kaplan-Meier plots
+> - Perform cox regression for survival analysis on multiple variables
+> - Categorizing continuous exposure variables for Kaplan-Meier analysis
+> - Accessing and using data from The Cancer Genome Atlas (TCGA) for basic survival analysis
+
+### Week 6: Predictive Modeling & Forecasting
 
 This session will provide hands-on instruction for using machine learning algorithms to predict a disease outcome. We will cover data cleaning, feature extraction, imputation, and using a variety of models to try to predict disease outcome. We will use resampling strategies to assess the performance of predictive modeling procedures such as Random Forest, stochastic gradient boosting, elastic net regularized regression (LASSO), and k-nearest neighbors. We will also demonstrate demonstrate how to _forecast_ future trends given historical infectious disease surveillance data using methodology that accounts for seasonality and nonlinearity. 
 
-### Week 5-7c: Introduction to RNA-seq Data Analysis
+> **Learning Objectives**
+> 
+> - Using exploratory data analysis & reviewing data visualization techniques to get a "feel" for the data you are working with
+> - Feature extraction and variable re-coding for machine learning analysis
+> - Imputing missing data
+> - Using the caret package for automated model training and testing
+> - Understand how resampling techniques can be used to develop a predictive model
+> - Assess the performance of a variety of predictive models on a particular data set: random forest, support vector machines, k-nearest neighbor, and elastic net regularized > regression
+> - Introduce forecasting and time series analysis
 
-This session focuses on analyzing real data from a biological application - analyzing RNA-seq data for differentially expressed genes. This session provides an introduction to RNA-seq data analysis, involving reading in count data from an RNA-seq experiment, exploring the data using base R functions and then analysis with the DESeq2 Bioconductor package. The session will conclude with downstream pathway analysis and exploring the biological and functional context of the results.
-
-### Week 5-7d: Visualizing and Annotating Phylogenetic Trees
-
-This lesson demonstrates how to use R and ggtree, an extension of the ggplot2 package, to visualize and annotate phylogenetic trees. This lesson does _not_ cover methods and software for _generating_ phylogenetic trees, nor does it it cover _interpreting_ phylogenies. Genome-wide sequencing allows for examination of the entire genome, and from this, many methods and software tools exist for comparative genomics using SNP- and gene-based phylogenetic analysis, either from unassembled sequencing reads, draft assemblies/contigs, or complete genome sequences. These methods are beyond the scope of this lesson.
-
-### Week 5-7e: Text mining
+### Week 7a: Text mining
 
 <mark>Under development.</mark>
 
@@ -107,6 +161,15 @@ This lesson demonstrates how to use R and ggtree, an extension of the ggplot2 pa
     - Latent Dirichlet allocation
     - Clustering, document-topic, topic-term modeling
 - Capstone analysis: something from a field of literature? Tweets? Abstracts from a meeting?
+
+### Week 7b: Introduction to RNA-seq Data Analysis
+
+This session focuses on analyzing real data from a biological application - analyzing RNA-seq data for differentially expressed genes. This session provides an introduction to RNA-seq data analysis, involving reading in count data from an RNA-seq experiment, exploring the data using base R functions and then analysis with the DESeq2 Bioconductor package. The session will conclude with downstream pathway analysis and exploring the biological and functional context of the results.
+
+### Week 7c: Visualizing and Annotating Phylogenetic Trees
+
+This lesson demonstrates how to use R and ggtree, an extension of the ggplot2 package, to visualize and annotate phylogenetic trees. This lesson does _not_ cover methods and software for _generating_ phylogenetic trees, nor does it it cover _interpreting_ phylogenies. Genome-wide sequencing allows for examination of the entire genome, and from this, many methods and software tools exist for comparative genomics using SNP- and gene-based phylogenetic analysis, either from unassembled sequencing reads, draft assemblies/contigs, or complete genome sequences. These methods are beyond the scope of this lesson.
+
 
 
 <!--
