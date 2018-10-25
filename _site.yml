@@ -49,9 +49,9 @@ navbar:
 #        - text: "Predictive Analytics & Forecasting Influenza"
 #          href: r-predictive-modeling.html
 #        - text: "----"
-#        - text: "--- Homework ---"
-#        - text: "Data Manipulation"
-#          href: r-dplyr-homework.html
+        - text: "--- Homework ---"
+        - text: "Data Manipulation"
+          href: r-dplyr-homework.html
 #        - text: "Data Visualization"
 #          href: r-viz-homework.html
 #        - text: "Reproducible Research & RMarkdown"
