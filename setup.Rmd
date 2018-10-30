@@ -24,7 +24,7 @@ Download and install **[RStudio Desktop](https://www.rstudio.com/products/rstudi
 
 R and RStudio are separate downloads and installations. **R** is the underlying statistical computing environment, but using R alone is no fun. **RStudio** is a graphical integrated development environment that makes using R much easier. You need R installed before you install RStudio.
 
-### CRAN packages
+### Essential packages
 
 We will need to install several core packages needed for most lessons. Launch RStudio (RStudio, *not R itself*). Ensure that you have internet access, then copy and paste the following commands, one-at-a-time, into the **Console** panel (usually the lower-left panel, by default) and hit the Enter/Return key. If you receive an error message when trying to install any particular package, please make note of which one you had trouble with, and [email one of the instructors](people.html) _prior to class_ with the command you typed and the error you received.
 
@@ -64,6 +64,45 @@ library(ggplot2)
 This may produce some notes or other output, but as long as you don't get an error message, you're good to go. If you get a message that says something like: `Error in library(somePackageName) : there is no package called 'somePackageName'`, then the required packages did not install correctly. Please do not hesitate to [email one of the instructors](people.html) _prior to class_ if you are still having difficulty. In this email, please copy and paste what you typed in the console, and all of the output that streams by in the console.
 
 
+### Refresher: Tidy EDA
+
+For our refresher course on tidy data and exploratory data analysis, we'll need additional packages from the **tidyverse** suite of packages, as well as a few additional packages. A quick note on the **tidyverse** package (https://www.tidyverse.org/): the tidyverse is a collection of other packages that are often used together. When you install or load tidyverse, you also install and load all the packages that we've used previously: dplyr, tidyr, ggplot2, as well as several others. Because we'll be using so many different packages from the tidyverse collection, it's more efficient load this "meta-package" rather than loading each individual package separately. Install these packages. You'll need all four.
+
+```r
+install.packages("tidyverse")
+install.packages("ggrepel")
+install.packages("scales")
+install.packages("lubridate")
+```
+
+I'll demonstrate some functionality from these other packages as well. They're handy to have installed, but are not strictly required.
+
+```r
+install.packages("plotly")
+install.packages("DT")
+```
+
+To ensure you have all these packages installed correctly, try loading them all with `library()`. 
+
+```r
+## Required packages:
+library(tidyverse)
+library(ggrepel)
+library(scales)
+library(lubridate)
+
+# Optional packages
+library(plotly)
+library(DT)
+```
+
+You may get some red message text, but if you see an **error** message, something along the lines of `Error in library(packageName) : there is no package called 'packageName'`, then the package that raised that error did not install correctly.
+
+
+## Electives
+
+The instructions below apply to additional "elective" classes, and are not strictly required as part of the core set of classes.  Install these as necessary.
+
 ### RMarkdown
 
 Several additional setup steps required for the reproducible research with RMarkdown class.
@@ -78,6 +117,7 @@ install.packages("rmarkdown")
 1. **_Optional_:** If you want to convert to PDF, you will need to install a **$\LaTeX$** typesetting engine. This differs on Mac and Windows. _Note that this part of the installation may take up to several hours, and isn't strictly required for the class._
     - **Windows**: Download and install MiKTeX: <https://miktex.org/download>. Read the installation tutorial first at <https://miktex.org/howto/install-miktex>.
     - **Mac**: Download and install MacTeX.pkg at <http://www.tug.org/mactex/mactex-download.html>. This is a very large download (>2 gigabytes), and may take a while depending on your network speed. Do this _prior to the course_.
+
 
 
 ### Bioconductor
@@ -104,10 +144,6 @@ library(BiocInstaller)
 If you get a message that says something like: `Error in library(BiocInstaller) : there is no package called 'BiocInstaller'`, then the required packages did not install correctly. Please do not hesitate to [email one of the instructors](people.html) _prior to the course_ if you are still having difficulty. In this email, please copy and paste what you typed in the console, and all of the output that streams by in the console.
 
 
-
-## Electives
-
-The instructions below apply to additional "elective" classes, and are not strictly required as part of the core set of classes.  Install these as necessary.
 
 ### Survival Analysis
 
