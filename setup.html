@@ -424,8 +424,8 @@ div.tocify {
 <p>Download and install <strong><a href="https://www.rstudio.com/products/rstudio/download/">RStudio Desktop</a></strong> version &gt;= 1.1.456.</p>
 <p>R and RStudio are separate downloads and installations. <strong>R</strong> is the underlying statistical computing environment, but using R alone is no fun. <strong>RStudio</strong> is a graphical integrated development environment that makes using R much easier. You need R installed before you install RStudio.</p>
 </div>
-<div id="cran-packages" class="section level3">
-<h3>CRAN packages</h3>
+<div id="essential-packages" class="section level3">
+<h3>Essential packages</h3>
 <p>We will need to install several core packages needed for most lessons. Launch RStudio (RStudio, <em>not R itself</em>). Ensure that you have internet access, then copy and paste the following commands, one-at-a-time, into the <strong>Console</strong> panel (usually the lower-left panel, by default) and hit the Enter/Return key. If you receive an error message when trying to install any particular package, please make note of which one you had trouble with, and <a href="people.html">email one of the instructors</a> <em>prior to class</em> with the command you typed and the error you received.</p>
 <pre class="r"><code>install.packages(&quot;dplyr&quot;)
 install.packages(&quot;readr&quot;)
@@ -446,6 +446,32 @@ library(tidyr)
 library(ggplot2)</code></pre>
 <p>This may produce some notes or other output, but as long as you don’t get an error message, you’re good to go. If you get a message that says something like: <code>Error in library(somePackageName) : there is no package called 'somePackageName'</code>, then the required packages did not install correctly. Please do not hesitate to <a href="people.html">email one of the instructors</a> <em>prior to class</em> if you are still having difficulty. In this email, please copy and paste what you typed in the console, and all of the output that streams by in the console.</p>
 </div>
+<div id="refresher-tidy-eda" class="section level3">
+<h3>Refresher: Tidy EDA</h3>
+<p>For our refresher course on tidy data and exploratory data analysis, we’ll need additional packages from the <strong>tidyverse</strong> suite of packages, as well as a few additional packages. A quick note on the <strong>tidyverse</strong> package (<a href="https://www.tidyverse.org/" class="uri">https://www.tidyverse.org/</a>): the tidyverse is a collection of other packages that are often used together. When you install or load tidyverse, you also install and load all the packages that we’ve used previously: dplyr, tidyr, ggplot2, as well as several others. Because we’ll be using so many different packages from the tidyverse collection, it’s more efficient load this “meta-package” rather than loading each individual package separately. Install these packages. You’ll need all four.</p>
+<pre class="r"><code>install.packages(&quot;tidyverse&quot;)
+install.packages(&quot;ggrepel&quot;)
+install.packages(&quot;scales&quot;)
+install.packages(&quot;lubridate&quot;)</code></pre>
+<p>I’ll demonstrate some functionality from these other packages as well. They’re handy to have installed, but are not strictly required.</p>
+<pre class="r"><code>install.packages(&quot;plotly&quot;)
+install.packages(&quot;DT&quot;)</code></pre>
+<p>To ensure you have all these packages installed correctly, try loading them all with <code>library()</code>.</p>
+<pre class="r"><code>## Required packages:
+library(tidyverse)
+library(ggrepel)
+library(scales)
+library(lubridate)
+
+# Optional packages
+library(plotly)
+library(DT)</code></pre>
+<p>You may get some red message text, but if you see an <strong>error</strong> message, something along the lines of <code>Error in library(packageName) : there is no package called 'packageName'</code>, then the package that raised that error did not install correctly.</p>
+</div>
+</div>
+<div id="electives" class="section level2">
+<h2>Electives</h2>
+<p>The instructions below apply to additional “elective” classes, and are not strictly required as part of the core set of classes. Install these as necessary.</p>
 <div id="rmarkdown" class="section level3">
 <h3>RMarkdown</h3>
 <p>Several additional setup steps required for the reproducible research with RMarkdown class.</p>
@@ -478,10 +504,6 @@ biocLite()</code></pre>
 <pre class="r"><code>library(BiocInstaller)</code></pre>
 <p>If you get a message that says something like: <code>Error in library(BiocInstaller) : there is no package called 'BiocInstaller'</code>, then the required packages did not install correctly. Please do not hesitate to <a href="people.html">email one of the instructors</a> <em>prior to the course</em> if you are still having difficulty. In this email, please copy and paste what you typed in the console, and all of the output that streams by in the console.</p>
 </div>
-</div>
-<div id="electives" class="section level2">
-<h2>Electives</h2>
-<p>The instructions below apply to additional “elective” classes, and are not strictly required as part of the core set of classes. Install these as necessary.</p>
 <div id="survival-analysis" class="section level3">
 <h3>Survival Analysis</h3>
 <p><strong>Prerequisites!</strong> This is <em>not</em> an introductory R class. <em>This lesson assumes a <a href="r-basics.html">basic familiarity with R</a>, <a href="r-dataframes.html">data frames</a>, and to a lesser degree, <a href="r-dplyr-yeast.html">manipulating data with dplyr and <code>%&gt;%</code></a>, and <a href="r-viz-gapminder.html">data visualization with ggplot2</a>.</em></p>
