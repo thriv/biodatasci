@@ -846,7 +846,7 @@ movimdb</code></pre>
 </ol>
 <p><img src="r-refresher-tidy-eda_files/figure-html/unnamed-chunk-27-1.png" width="816" /></p>
 <ol start="10" style="list-style-type: decimal">
-<li>Looking at that above plot, I’m interested in (a) what are those movies with the largest number of votes? and (b) what are those movies with at least 10,000 votes that have the worst scores?</li>
+<li>Looking at that above plot, I’m interested in (a) what are those movies with the largest number of votes? and (b) what are those movies with at least 50,000 votes that have the worst scores?</li>
 </ol>
 <pre class="r"><code>movimdb %&gt;% 
   arrange(desc(votes)) %&gt;% 
