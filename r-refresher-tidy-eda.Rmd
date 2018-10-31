@@ -426,6 +426,185 @@ mov %>%
        title="Total worldwide revenue for each rating")
 ```
 
+### Join to IMDB reviews
+
+Look back at the [dplyr reference on joins](https://dplyr.tidyverse.org/reference/join.html). An inner join lets you take two tables, match by a common column (or columns), and return rows with an entry in both, returning all columns in each table. I've downloaded all the data underlying IMDB ([imdb.com/interfaces](https://www.imdb.com/interfaces/)), and created a reduced dataset having ratings for all the movies in IMDB. Let's join the movie data we have here with IMDB ratings. Download the data here: **[movies_imdb.csv](data/movies_imdb.csv)**. Once you've downloaded it, read it in with `read_csv()`:
+
+```{r, results='hide'}
+imdb <- read_csv("data/movies_imdb.csv")
+imdb
+```
+
+There are **`r prettyNum(nrow(imdb), big.mark=',')`** movies in this dataset. There are **`r prettyNum(nrow(mov), big.mark=',')`** movies in the data we've already been using. Let's see how many we have that intersect in both:
+
+```{r, results="hide"}
+movimdb <- inner_join(mov, imdb, by="movie")
+movimdb
+```
+
+It turns out there are only **`r prettyNum(nrow(movimdb), big.mark=',')`** rows in the joined dataset. That's because there were some rows in `mov` that weren't in `imdb`, and vice versa. Some of these are truly cases where there isn't an entry in one. Others are cases where it's `Star Wars Ep. I: The Phantom Menace` in one dataset but `Star Wars: Episode I - The Phantom Menace` in another,   or `Mr. & Mrs. Smith` versus `Mr. and Mrs. Smith`. Others might be ascii versus unicode text incompatibility, e.g. the hyphen "-" versus the endash, "--".
+
+Now that you have the datasets joined, try a few more exercises!
+
+----
+
+**EXERCISE `r .ex``r .ex=.ex+1`**
+
+1. Separately for each MPAA rating, display the mean IMDB rating and mean number of votes cast.
+
+```{r, echo=FALSE}
+movimdb %>% 
+  group_by(mpaa_rating) %>% 
+  summarize(meanimdb=mean(imdb), meanvotes=mean(votes))
+```
+
+2. Do the same but for each movie genre.
+
+```{r, echo=FALSE}
+movimdb %>% 
+  group_by(genre) %>% 
+  summarize(meanimdb=mean(imdb), meanvotes=mean(votes))
+```
+
+3. Do the same but for each distributor, after lumping distributors in a mutate statement to the top 4 distributors, as we've done before.
+
+```{r, echo=FALSE}
+movimdb %>% 
+  mutate(distributor=fct_lump(distributor, 4)) %>% 
+  group_by(distributor) %>% 
+  summarize(meanimdb=mean(imdb), meanvotes=mean(votes))
+```
+
+4. Create a boxplot visually summarizing what you saw in #1 and #2 above. That is, show the distribution of IMDB ratings for each genre, but map the fill aesthetic for the boxplot onto the MPAA rating. Here we can see that Dramas tend to get a higher IMDB rating overall. Across most categories R rated movies fare better. We also see from this that there are no Action or Horror movies rated G (understandably!). In fact, after this I actually wanted to see what the "Horror" movies were having a PG rating that seemed to do better than PG-13 or R rated Horror movies.
+
+```{r, echo=FALSE}
+movimdb %>% 
+  ggplot(aes(genre, imdb)) + 
+  geom_boxplot(aes(fill=mpaa_rating)) + 
+  expand_limits(y=c(0,10)) + 
+  labs(x="Genre",
+       y="IMDB Rating", 
+       title="IMDB Ratings by Genre by MPAA rating", 
+       fill="MPAA Rating")
+```
+
+```{r}
+movimdb %>% 
+  filter(mpaa_rating=="PG", genre=="Horror") %>% 
+  select(release_date, movie, worldwide_gross, imdb, votes)
+```
+
+5. Create a scatter plot of worldwide gross revenue by IMDB rating, with the gross revenue on a log scale. Color the points by genre. Add a trendline with `method="lm"`.
+
+```{r, echo=FALSE}
+movimdb %>% 
+  ggplot(aes(imdb, worldwide_gross)) + 
+  geom_point(aes(color=genre)) + 
+  scale_y_log10(labels=dollar_format()) + 
+  geom_smooth(method="lm") + 
+  labs(x="IMDB rating",
+       y="Worldwide gross revenue",
+       title="Worldwide gross revenue by IMDB rating")
+```
+
+6. Create the same plot, this time putting the number of votes on the x-axis, and make both the x and y-axes log scale.
+
+```{r, echo=FALSE}
+movimdb %>% 
+  ggplot(aes(votes, worldwide_gross)) + 
+  geom_point(aes(color=genre)) + 
+  scale_y_log10(labels=dollar_format()) + 
+  scale_x_log10(labels=number_format()) + 
+  geom_smooth(method="lm") + 
+  labs(x="Number of votes on IMDB",
+       y="Worldwide gross revenue",
+       title="Worldwide gross revenue by number of IMDB votes cast")
+```
+
+7. Create the above plots, but this time plot the ROI instead of the gross revenue.
+
+```{r, echo=FALSE}
+movimdb %>% 
+  ggplot(aes(imdb, roi)) + 
+  geom_point(aes(color=genre)) + 
+  scale_y_log10() + 
+  geom_smooth(method="lm") + 
+  labs(x="IMDB rating",
+       y="X Return on investment",
+       title="ROI by IMDB rating")
+```
+
+
+```{r, echo=FALSE}
+movimdb %>% 
+  ggplot(aes(votes, roi)) + 
+  geom_point(aes(color=genre)) + 
+  scale_y_log10(labels=dollar_format()) + 
+  scale_x_log10(labels=number_format()) + 
+  geom_smooth(method="lm") + 
+  labs(x="Number of votes on IMDB",
+       y="X Return on investment",
+       title="ROI by number of IMDB votes cast")
+```
+
+8. Is there a relationship between the release date and the IMDB ratings or votes cast? Surprisingly, there doesn't appear to be one.
+
+```{r, echo=FALSE}
+movimdb %>% 
+  ggplot(aes(release_date, votes)) + 
+  geom_point() + 
+  geom_smooth(method="lm") + 
+  scale_y_log10(labels=number_format()) + 
+  labs(x="Release date", 
+       y="Number of votes cast on IMDB", 
+       title="Number of votes by release date")
+
+movimdb %>% 
+  ggplot(aes(release_date, imdb)) + 
+  geom_point() + 
+  geom_smooth(method="lm") + 
+  expand_limits(y=c(0,10)) + 
+  labs(x="Release date", 
+       y="IMDB rating", 
+       title="IMDB rating by release date")
+```
+
+9. Is there a relationship between the IMDB rating and the number of votes cast? It appears so, at least as you get toward the movies with the very largest number of ratings.
+
+```{r, echo=FALSE}
+movimdb %>% 
+  ggplot(aes(votes, imdb)) + 
+  geom_point() + 
+  geom_smooth() + 
+  scale_x_log10(label=number_format()) + 
+  expand_limits(y=c(0,10)) + 
+  labs(x="Number of votes cast", 
+       y="IMDB rating", 
+       title="IMDB rating by number of votes cast")
+```
+
+10. Looking at that above plot, I'm interested in (a) what are those movies with the largest number of votes? and (b) what are those movies with at least 10,000 votes that have the worst scores?
+
+```{r}
+movimdb %>% 
+  arrange(desc(votes)) %>% 
+  head(10) %>% 
+  select(release_date, movie, roi, imdb, votes)
+```
+
+No surprises there. These are some of the most universally loved films ever made. Interesting that the return on investment varies wildly (1.13x for the highest rated movie of all time, up to 26x for _Pulp Fiction_, which had to pay for an all-star cast).
+
+```{r}
+movimdb %>% 
+  filter(votes>50000) %>% 
+  arrange(imdb) %>% 
+  head(10) %>% 
+  select(release_date, movie, roi, imdb, votes)
+```
+
+Interesting that several of these having such terrible reviews still have fairly high return on investment (>14x for _Fifty Shades of Grey_!).
+
+----
 
 ## College Majors & Income
 
