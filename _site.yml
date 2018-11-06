@@ -38,8 +38,8 @@ navbar:
           href: r-dplyr-yeast.html
         - text: "Tidying data"
           href: r-tidy.html
-#        - text: "Data Visualization"
-#          href: r-viz-gapminder.html
+        - text: "Data Visualization"
+          href: r-viz-gapminder.html
 #        - text: "Refresher: Tidy EDA"
 #          href: r-refresher-tidy-eda.html
 #        - text: "Reproducible Research & RMarkdown"
@@ -54,8 +54,8 @@ navbar:
         - text: "--- Homework ---"
         - text: "Data Manipulation"
           href: r-dplyr-homework.html
-#        - text: "Data Visualization"
-#          href: r-viz-homework.html
+        - text: "Data Visualization"
+          href: r-viz-homework.html
 #        - text: "Reproducible Research & RMarkdown"
 #          href: r-rmarkdown-homework.html
 #        - text: "Essential Statistics"
