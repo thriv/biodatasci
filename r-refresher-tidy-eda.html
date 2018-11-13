@@ -569,6 +569,17 @@ mov</code></pre>
 <p>Does the day a movie is release affect revenue? Make a boxplot showing the worldwide gross revenue for each day.</p>
 <p><img src="r-refresher-tidy-eda_files/figure-html/unnamed-chunk-7-1.png" width="816" /></p>
 <hr />
+<p>What about month? Just swap <code>day</code> for <code>month</code> in the code.</p>
+<pre class="r"><code>mov %&gt;% 
+  ggplot(aes(month, worldwide_gross)) + 
+  geom_boxplot(col=&quot;gray10&quot;, fill=&quot;gray90&quot;) + 
+  scale_y_log10(labels=dollar_format()) +
+  labs(x=&quot;Release month&quot;,
+       y=&quot;Worldwide gross revenue&quot;, 
+       title=&quot;Does the day a movie is release affect revenue?&quot;, 
+       caption=&quot;Adapted from @jaseziv&quot;) + 
+  theme_classic()</code></pre>
+<p><img src="r-refresher-tidy-eda_files/figure-html/revenue-by-month-1.png" width="816" /></p>
 <p>We could also get a quantitative look at the average revenue by day using a group-by summarize operation:</p>
 <pre class="r"><code>mov %&gt;% 
   group_by(day) %&gt;% 
@@ -583,17 +594,6 @@ mov</code></pre>
 ## 5 Thu   194466996.
 ## 6 Fri    90769834.
 ## 7 Sat    89889497.</code></pre>
-<p>What about month? Just swap <code>day</code> for <code>month</code> in the code.</p>
-<pre class="r"><code>mov %&gt;% 
-  ggplot(aes(month, worldwide_gross)) + 
-  geom_boxplot(col=&quot;gray10&quot;, fill=&quot;gray90&quot;) + 
-  scale_y_log10(labels=dollar_format()) +
-  labs(x=&quot;Release month&quot;,
-       y=&quot;Worldwide gross revenue&quot;, 
-       title=&quot;Does the day a movie is release affect revenue?&quot;, 
-       caption=&quot;Adapted from @jaseziv&quot;) + 
-  theme_classic()</code></pre>
-<p><img src="r-refresher-tidy-eda_files/figure-html/revenue-by-month-1.png" width="816" /></p>
 <p>It looks like summer months and holiday months at the end of the year fare well. Let’s look at a table and run a regression analysis.</p>
 <pre class="r"><code>mov %&gt;% 
   group_by(month) %&gt;% 
@@ -1108,7 +1108,7 @@ grads %&gt;%
 <p><img src="r-refresher-tidy-eda_files/figure-html/scatter-income-total-1.png" width="816" /></p>
 <p>You could run a regression analysis to see if there’s a trend.</p>
 <pre class="r"><code>lm(Median~(Total), data=grads) %&gt;% summary()</code></pre>
-<p>What categories of majors make more money than others? Let’s make a bosplot of median income by major category. Let’s expand the limits to include 0 on the y-axis, and flip the coordinate system.</p>
+<p>What categories of majors make more money than others? Let’s make a boxplot of median income by major category. Let’s expand the limits to include 0 on the y-axis, and flip the coordinate system.</p>
 <pre class="r"><code>grads %&gt;%
   ggplot(aes(Major_category, Median)) +
   geom_boxplot(aes(fill = Major_category)) +
@@ -1211,6 +1211,7 @@ ggplotly(p)</code></pre>
 ## F-statistic: 96.4 on 1 and 169 DF,  p-value: &lt;2e-16</code></pre>
 <p>Let’s run a similar analysis looking at the median income as a function of the percentage of majors getting a job requiring a college degree.</p>
 <pre class="r"><code>grads %&gt;% 
+  mutate(Major_category = fct_lump(Major_category, 4)) %&gt;%
   ggplot(aes(pct_college, Median)) + 
   geom_point(aes(size=Total, col=Major_category)) + 
   geom_smooth() + 
