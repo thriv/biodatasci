@@ -175,14 +175,6 @@ mov %>%
 
 ----
 
-We could also get a quantitative look at the average revenue by day using a group-by summarize operation:
-
-```{r}
-mov %>% 
-  group_by(day) %>% 
-  summarize(rev=mean(worldwide_gross))
-```
-
 What about month? Just swap `day` for `month` in the code.
 
 ```{r revenue-by-month}
@@ -195,6 +187,15 @@ mov %>%
        title="Does the day a movie is release affect revenue?", 
        caption="Adapted from @jaseziv") + 
   theme_classic()
+```
+
+
+We could also get a quantitative look at the average revenue by day using a group-by summarize operation:
+
+```{r}
+mov %>% 
+  group_by(day) %>% 
+  summarize(rev=mean(worldwide_gross))
 ```
 
 It looks like summer months and holiday months at the end of the year fare well. Let's look at a table and run a regression analysis.
