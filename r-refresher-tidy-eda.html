@@ -381,12 +381,21 @@ div.tocify {
     <li>
       <a href="r-viz-gapminder.html">Data Visualization</a>
     </li>
+    <li>
+      <a href="r-refresher-tidy-eda.html">Refresher: Tidy EDA</a>
+    </li>
+    <li>
+      <a href="r-rmarkdown.html">Reproducible Research &amp; RMarkdown</a>
+    </li>
     <li class="dropdown-header">--- Homework ---</li>
     <li>
       <a href="r-dplyr-homework.html">Data Manipulation</a>
     </li>
     <li>
       <a href="r-viz-homework.html">Data Visualization</a>
+    </li>
+    <li>
+      <a href="r-rmarkdown-homework.html">Reproducible Research &amp; RMarkdown</a>
     </li>
   </ul>
 </li>
@@ -1042,28 +1051,50 @@ grads</code></pre>
 <li>Use <code>head(10)</code> or <code>tail(10)</code> to show the first or last few rows.</li>
 </ul>
 <p><small></p>
-<pre><code>                                       Major    Major_category Total Median
-1                      Petroleum Engineering       Engineering  2339 110000
-2             Mining And Mineral Engineering       Engineering   756  75000
-3                  Metallurgical Engineering       Engineering   856  73000
-4  Naval Architecture And Marine Engineering       Engineering  1258  70000
-5                       Chemical Engineering       Engineering 32260  65000
-6                        Nuclear Engineering       Engineering  2573  65000
-7                          Actuarial Science          Business  3777  62000
-8                 Astronomy And Astrophysics Physical Sciences  1792  62000
-9                     Mechanical Engineering       Engineering 91227  60000
-10                    Electrical Engineering       Engineering 81527  60000</code></pre>
-<pre><code>                                           Major            Major_category Total Median
-1  Communication Disorders Sciences And Services                    Health 38279  28000
-2                      Early Childhood Education                 Education 37589  28000
-3                        Other Foreign Languages Humanities &amp; Liberal Arts 11204  27500
-4                         Drama And Theater Arts                      Arts 43249  27000
-5                       Composition And Rhetoric Humanities &amp; Liberal Arts 18953  27000
-6                                        Zoology    Biology &amp; Life Science  8409  26000
-7                         Educational Psychology  Psychology &amp; Social Work  2854  25000
-8                            Clinical Psychology  Psychology &amp; Social Work  2838  25000
-9                          Counseling Psychology  Psychology &amp; Social Work  4626  23400
-10                               Library Science                 Education  1098  22000</code></pre>
+<pre><code>                                       Major    Major_category Total
+1                      Petroleum Engineering       Engineering  2339
+2             Mining And Mineral Engineering       Engineering   756
+3                  Metallurgical Engineering       Engineering   856
+4  Naval Architecture And Marine Engineering       Engineering  1258
+5                       Chemical Engineering       Engineering 32260
+6                        Nuclear Engineering       Engineering  2573
+7                          Actuarial Science          Business  3777
+8                 Astronomy And Astrophysics Physical Sciences  1792
+9                     Mechanical Engineering       Engineering 91227
+10                    Electrical Engineering       Engineering 81527
+   Median
+1  110000
+2   75000
+3   73000
+4   70000
+5   65000
+6   65000
+7   62000
+8   62000
+9   60000
+10  60000</code></pre>
+<pre><code>                                           Major            Major_category
+1  Communication Disorders Sciences And Services                    Health
+2                      Early Childhood Education                 Education
+3                        Other Foreign Languages Humanities &amp; Liberal Arts
+4                         Drama And Theater Arts                      Arts
+5                       Composition And Rhetoric Humanities &amp; Liberal Arts
+6                                        Zoology    Biology &amp; Life Science
+7                         Educational Psychology  Psychology &amp; Social Work
+8                            Clinical Psychology  Psychology &amp; Social Work
+9                          Counseling Psychology  Psychology &amp; Social Work
+10                               Library Science                 Education
+   Total Median
+1  38279  28000
+2  37589  28000
+3  11204  27500
+4  43249  27000
+5  18953  27000
+6   8409  26000
+7   2854  25000
+8   2838  25000
+9   4626  23400
+10  1098  22000</code></pre>
 <p></small></p>
 <hr />
 <p>If you have the <strong>DT</strong> package installed, you can make an interactive table just like the one in the <a href="https://fivethirtyeight.com/features/the-economic-guide-to-picking-a-college-major/">FiveThirtyEight article</a>.</p>
