@@ -681,7 +681,7 @@ Remake table 1 from the [FiveThirtyEight article](https://fivethirtyeight.com/fe
 <small>
 
 ```{r, include=FALSE}
-options(width=120)
+options(width=130)
 ```
 
 
@@ -738,7 +738,7 @@ lm(Median~(Total), data=grads) %>% summary()
 ```
 
 
-What categories of majors make more money than others? Let's make a bosplot of median income by major category. Let's expand the limits to include 0 on the y-axis, and flip the coordinate system.
+What categories of majors make more money than others? Let's make a boxplot of median income by major category. Let's expand the limits to include 0 on the y-axis, and flip the coordinate system.
 
 ```{r income-by-major-boxplot}
 grads %>%
