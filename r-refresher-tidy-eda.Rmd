@@ -871,6 +871,7 @@ Let's run a similar analysis looking at the median income as a function of the p
 
 ```{r, fig.width=10, fig.height=8}
 grads %>% 
+  mutate(Major_category = fct_lump(Major_category, 4)) %>%
   ggplot(aes(pct_college, Median)) + 
   geom_point(aes(size=Total, col=Major_category)) + 
   geom_smooth() + 
