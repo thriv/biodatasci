@@ -13,7 +13,7 @@ Re-create this same plot from scratch without saving anything to a variable. Tha
 
 * Start with the `ggplot()` function using the gm data.
 * Create an aesthetic mapping of `gdpPercap` to the x-axis and `lifeExp` to the y-axis.
-* Add points to the plot: Make the points size 3 and map continent onto the aesthetics of the point
+* Add points to the plot: Make the points size 3 and map continent onto the color aesthetic of the point.
 * Use a log<sub>10</sub> scale for the x-axis.
 
 
