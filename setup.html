@@ -578,9 +578,12 @@ library(RTCGA.mRNA)</code></pre>
 </ul>
 <p>Some knowledge of statistics and resampling procedures is helpful, but not strictly required.</p>
 <p><strong>Software setup:</strong> Follow instructions above for <a href="#r">R+RStudio+Packages</a> and <a href="#cran-packages">CRAN packages</a>. For this class, you’ll also need several additional packages described below. If you receive an error message when trying to install any particular package, please make note of which one you had trouble with, and <a href="people.html">email me</a> <em>prior to class</em> with the command you typed and the error you received.</p>
-<p>First, install the <strong><a href="https://cran.r-project.org/package=caret">caret</a></strong> package, which provides a unified interface to hundreds of data mining and machine learning algorithms and a framework for model training and evaluation. This command will also install all the additional packages that <strong>caret</strong> recommends.</p>
-<pre class="r"><code>install.packages(&quot;caret&quot;, dependencies = c(&quot;Depends&quot;, &quot;Suggests&quot;))</code></pre>
-<p>When you do this, you may get a note asking you about installing source packages that need compilation. If you get this message, type <code>n</code> and hit <code>Enter</code> at the prompt for “no.”</p>
+<p>First, install the <strong><a href="https://cran.r-project.org/package=caret">caret</a></strong> package, which provides a unified interface to hundreds of data mining and machine learning algorithms and a framework for model training and evaluation. This command will also install all the additional packages that <strong>caret</strong> recommends. You will also need to install a few other packages that are required by caret that might not be automatically installed. These are also listed below.</p>
+<pre class="r"><code>install.packages(&quot;caret&quot;, dependencies = c(&quot;Depends&quot;, &quot;Suggests&quot;))
+install.packages(&quot;ModelMetrics&quot;)
+install.packages(&quot;generics&quot;)
+install.packages(&quot;gower&quot;)</code></pre>
+<p>When you do this, you may get a note asking you about installing source packages that need compilation. If you get this message, focus on the console pane by clicking and type <code>n</code> and hit <code>Enter</code> at the prompt for “no.”</p>
 <pre><code>There are binary versions available but the source versions are later:
                 binary  source  needs_compilation
 somePackage1    ....    ....               TRUE
@@ -610,7 +613,7 @@ library(prophet)</code></pre>
 <ul>
 <li><strong><a href="data/h7n9.csv">h7n9.csv</a></strong>: The slightly processed raw dataset from an <a href="https://en.wikipedia.org/wiki/Influenza_A_virus_subtype_H7N9">influenza A H7N9 outbreak in China in 2013</a>, published by <a href="https://www.ncbi.nlm.nih.gov/pubmed/24619563">Kucharski <em>et al</em> 2014</a>. Contains the original variables, with lots of missing data throughout.</li>
 <li><strong><a href="data/h7n9_analysisready.csv">h7n9_analysisready.csv</a></strong>: The “analysis-ready” dataset. This data has been cleaned up, with some “feature extraction” / variable recoding done to make the data more suitable to data mining / machine learning methods used in this class. We will start with the raw data above, but I provide this data in case you don’t make it all the way through the data cleaning and feature extraction steps we will need to perform.</li>
-<li><strong><a href="data/ilinet.csv">ilinet.csv</a></strong>: Historical flu tracking data from the CDC’s U.S. Outpatient <a href="https://wwwn.cdc.gov/ilinet/">Influenza-like Illness Surveillance Network</a> along with data from the <a href="https://gis.cdc.gov/grasp/fluview/mortality.html">National Center for Health Statistics (NCHS) Mortality Surveillance System</a>. This contains ILI totals from CDC and flu + pneumonia death data from NCHS through the end of October 2017.</li>
+<li><strong><a href="data/ilinet.csv">ilinet.csv</a></strong>: Historical flu tracking data from the CDC’s U.S. Outpatient <a href="https://wwwn.cdc.gov/ilinet/">Influenza-like Illness Surveillance Network</a> along with data from the <a href="https://gis.cdc.gov/grasp/fluview/mortality.html">National Center for Health Statistics (NCHS) Mortality Surveillance System</a>. This contains ILI totals from CDC and flu + pneumonia death data from NCHS through the end of September 2018.</li>
 </ul>
 <p><strong>Recommended reading</strong> prior to class:</p>
 <blockquote>
