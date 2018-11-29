@@ -12,7 +12,7 @@ suppressPackageStartupMessages(library(dplyr))
 ```
 
 ```{r zipdir, include=FALSE}
-if (!file.exists("data.zip")) system("rm data.zip ; zip -r data.zip data -x '*.html' -x '*.DS_Store'")
+if (!file.exists("data.zip")) system("rm data.zip ; zip -r data.zip data -x '*bronte.rds' -x '*hgwells.rds' -x '*.html' -x '*.DS_Store'")
 ```
 
 1. **Option 1: Download all the data**. Download and extract **[this zip file <i class="fa fa-file-archive-o" aria-hidden="true"></i>](data.zip)** `r paste0("(", round(file.info("data.zip")$size/1e6, 2), " Mb)")` with all the data for the entire workshop. This may include additional datasets that we won't use here.
