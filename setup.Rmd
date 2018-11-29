@@ -289,12 +289,14 @@ library(prophet)
 
 ```r
 install.packages("tidytext")
+install.packages("gutenbergr")
 ```
 
 To check that these are correctly installed, first close RStudio and then reopen it and run the following:
 
 ```r
 library(tidytext)
+library(gutenbergr)
 ```
 
 
