@@ -400,6 +400,77 @@ Project Gutenberg (<https://www.gutenberg.org/>) is a collection of freely avail
   * `gutenberg_authors` contains information about each author, such as aliases and birth/death year
   * `gutenberg_subjects` contains pairings of works with Library of Congress subjects and topics
 
+Let's use a different corpus of documents, to see what terms are important in a different set of works. Let's download some classic science texts from Project Gutenberg and see what terms are important in these works, as measured by tf-idf. We'll use three classic physics texts, and a classic Darwin text. Let's use:
+
+- [_Discourse on Floating Bodies_ by Galileo Galilei: <http://www.gutenberg.org/ebooks/37729>
+- [_Treatise on Light_ by Christiaan Huygens: <http://www.gutenberg.org/ebooks/14725>
+- [_Experiments with Alternate Currents of High Potential and High Frequency_ by Nikola Tesla: <http://www.gutenberg.org/ebooks/13476>
+- [_On the Origin of Species By Means of Natural Selection_ by Charles Darwin: <http://www.gutenberg.org/ebooks/5001>
+
+These might all be physics classics, but they were written across a 300-year timespan, and some of them were first written in other languages and then translated to English. 
+
+```{r, eval = FALSE}
+library(gutenbergr)
+sci <- gutenberg_download(c(37729, 14725, 13476, 1228), meta_fields = "author")
+```
+
+```{r, echo = FALSE}
+# saveRDS(sci, "data/_sci.rda")
+sci <- readRDS("data/_sci.rda")
+```
+
+Now that we have the texts, let's use `unnest_tokens()` and `count()` to find out how many times each word was used in each text. Let's assign this to an object called `sciwords`. Let's go ahead and add the tf-idf also.
+
+```{r}
+scitidy <- sci %>% 
+  unnest_tokens(word, text)
+
+sciwords <- scitidy %>%
+  count(word, author, sort = TRUE) %>%
+  bind_tf_idf(word, author, n)
+sciwords
+```
+
+Now let's do the same thing we did before with Jane Austen's novels:
+
+```{r, fig.height=8}
+sciwords %>% 
+  group_by(author) %>% 
+  top_n(15) %>% 
+  ungroup() %>%
+  mutate(word=reorder(word, tf_idf)) %>% 
+  ggplot(aes(word, tf_idf)) +
+  geom_col() +
+  labs(x = NULL, y = "tf-idf") +
+  facet_wrap(~author, ncol = 2, scales = "free") +
+  coord_flip()
+```
+
+We see some weird things here. We see "fig" for Tesla, but I doubt he was writing about a fruit tree. We see things like ab, ac, rc, etc for Huygens -- these are names of rays and angles, etc. We could create a custom stop words dictionary to remove these. Let's create a stop words data frame, then anti join that before plotting.
+
+```{r, eval=FALSE}
+mystopwords <- data_frame(word=c("ab", "ac", "rc", "cm", "cg", "cb", "ak", "bn", "fig"))
+sciwords %>% 
+  anti_join(mystopwords) %>% 
+  group_by(author) %>% 
+  top_n(15) %>% 
+  ungroup() %>%
+  mutate(word=reorder(word, tf_idf)) %>% 
+  ggplot(aes(word, tf_idf)) +
+  geom_col() +
+  labs(x = NULL, y = "tf-idf") +
+  facet_wrap(~author, ncol = 2, scales = "free") +
+  coord_flip()
+```
+
+
+## Additional topics
+
+- [Relationships between words: n-grams and correlations](https://www.tidytextmining.com/ngrams.html)
+- [Converting to and from non-tidy formats](https://www.tidytextmining.com/dtm.html)
+
+<!--
+
 Search https://www.gutenberg.org/ for "H G Wells" and click on one of the results. You'll see the book ID in the URL. One thing we might do in text mining is to compare word frequencies across different texts. We loaded Jane Austen's novels from a file. Let's use gutenbergr to get two more sets of texts. First, let's look at some science fiction and fantasy novels by H.G. Wells, who lived in the late 19th and early 20th centuries. Let's get [*The Time Machine*](https://www.gutenberg.org/ebooks/35), [*The War of the Worlds*](https://www.gutenberg.org/ebooks/36), [*The Invisible Man*](https://www.gutenberg.org/ebooks/5230), and [*The Island of Doctor Moreau*](https://www.gutenberg.org/ebooks/159). We can access these works using `gutenberg_download()` and the Project Gutenberg ID numbers for each novel.
 
 ```{r, include=FALSE}
@@ -447,3 +518,4 @@ brtidy %>%
   count(word, sort=TRUE)
 ```
 
+-->
