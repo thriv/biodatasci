@@ -415,8 +415,8 @@ sci <- gutenberg_download(c(37729, 14725, 13476, 1228), meta_fields = "author")
 ```
 
 ```{r, echo = FALSE}
-# saveRDS(sci, "data/_sci.rda")
-sci <- readRDS("data/_sci.rda")
+# saveRDS(sci, "data/_sci.rds")
+sci <- readRDS("data/_sci.rds")
 ```
 
 Now that we have the texts, let's use `unnest_tokens()` and `count()` to find out how many times each word was used in each text. Let's assign this to an object called `sciwords`. Let's go ahead and add the tf-idf also.
