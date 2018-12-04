@@ -284,10 +284,11 @@ library(prophet)
 - [Data tidying with tidyr](r-tidy.html)
 - [Advanced data visualization with ggplot2](r-viz-gapminder.html)
 
-**Software setup:** Follow instructions above for [R+RStudio+Packages](#r) and [CRAN packages](#cran-packages). For this class, you'll also need several additional packages described below. If you receive an error message when trying to install any particular package, please make note of which one you had trouble with, and [email me](people.html) _prior to class_ with the command you typed and the error you received.
+**Software setup:** For this class, you'll need R >= 3.5.0, and several additional packages described below. If you receive an error message when trying to install any particular package, please make note of which one you had trouble with, and [email me](people.html) _prior to class_ with the command you typed and the error you received. If you're not sure which version of R you're using, run the `sessionInfo()` command to check. You must use >= 3.5.0 (3.4.x will not work).
 
 
 ```r
+install.packages("tidyverse")
 install.packages("tidytext")
 install.packages("gutenbergr")
 install.packages("tm")
@@ -297,13 +298,16 @@ install.packages("topicmodels")
 To check that these are correctly installed, first close RStudio and then reopen it and run the following:
 
 ```r
+library(tidyverse)
 library(tidytext)
 library(gutenbergr)
 library(tm)
 library(topicmodels)
 ```
 
+Download the **[austen.csv](data/austen.csv)** data we'll use in class from the [data](data.html) page.
 
+## Not Covered This Year
 
 ### RNA-seq
 
