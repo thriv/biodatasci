@@ -42,6 +42,7 @@ Before we get started, let's load the packages we'll need.
 library(tidyverse)
 library(tidytext)
 library(gutenbergr)
+library(topicmodels)
 ```
 
 
@@ -503,13 +504,83 @@ First let's use the `LDA()` function from the topicmodels package, setting `k = 
 
 ```{r ap_lda, cache=TRUE, results="hide"}
 # set a seed so that the output of the model is predictable
-set.seed(1234)
-ap_lda <- LDA(AssociatedPress, k = 2)
+ap_lda <- LDA(AssociatedPress, k = 2, control=list(seed=1234))
 ap_lda
 ```
 
 ### Word-topic probabilities
 
+Displaying the model itself, `ap_lda` isn't that interesting. The tidytext package provides a `tidy` method for extracting the per-topic-per-word probabilities, called $\beta$ ("beta"), from the model. 
+
+```{r}
+ap_topics <- tidy(ap_lda, matrix = "beta")
+ap_topics
+```
+
+This returns a one-topic-per-term-per-row format. For each combination, the model computes the probability of that term being generated from that topic. For example, the term "aaron" has a $`r ap_topics$beta[1]`$ probability of being generated from topic 1, but a $`r ap_topics$beta[2]`$ probability of being generated from topic 2. 
+
+We could use dplyr's `top_n()` to find the 10 terms that are most common within each topic. Because this returns a tidy data frame, we could easily continue piping to ggplot2.
+
+```{r, results="hide"}
+# What are the top words for each topic?
+ap_topics %>%
+  group_by(topic) %>%
+  top_n(10) %>%
+  ungroup() %>%
+  arrange(topic, desc(beta))
+```
+
+```{r}
+# Continue piping to ggplot2
+ap_topics %>%
+  group_by(topic) %>%
+  top_n(10) %>%
+  ungroup() %>%
+  arrange(topic, desc(beta)) %>% 
+  mutate(term = reorder(term, beta)) %>%
+  ggplot(aes(term, beta)) +
+  geom_col() +
+  facet_wrap(~topic, scales = "free") +
+  coord_flip()
+```
+
+This visualization lets us understand the two topics that were extracted from the articles. Common words in topic 1 include "percent", "million", "billion", and "company". Perhaps topic 1 represents business or financial news. Common in topic 2 include "president", "government", and "soviet", suggeting that this topic represents political news. Note that some words, such as "new" and "people", are common within both topics. This is an advantage (as opposed to "hard clustering" methods): topics used in natural language could have some overlap in terms of words.
+
+Let's look at the terms that had the *greatest difference* in $\beta$ between topic 1 and topic 2. This can be estimated based on the log ratio of the two: $\log_2(\frac{\beta_2}{\beta_1})$ (a log ratio is useful because it makes the difference symmetrical: $\beta_2$ being twice as large leads to a log ratio of 1, while $\beta_1$ being twice as large results in -1). To constrain it to a set of especially relevant words, we can filter for relatively common words, such as those that have a $\beta$ greater than 1/1000 in at least one topic.
+
+First let's turn `1` and `2` into `topic1` and `topic2` so that after the `spread` we'll easily be able to work with those columns.
+
+```{r beta_spread, results='hide'}
+ap_topics %>%
+  mutate(topic = paste0("topic", topic)) %>%
+  spread(topic, beta) %>%
+  filter(topic1 > .001 | topic2 > .001) %>%
+  mutate(log_ratio = log2(topic2 / topic1))
+```
+
+We could continue piping to ggplot2. First, let's create a new variable we'll group on, which is the direction of imbalance. We'll also create a variable showing the absolute value of the log ratio, which is a directionless value indicating the magnitude of the effect. This lets us select the top 10 terms most associated with either topic1 or topic2.
+
+```{r, fig.height=8}
+ap_topics %>%
+  mutate(topic = paste0("topic", topic)) %>%
+  spread(topic, beta) %>%
+  filter(topic1 > .001 | topic2 > .001) %>%
+  mutate(log_ratio = log2(topic2 / topic1)) %>% 
+  mutate(direction = (log_ratio>0)) %>% 
+  mutate(absratio=abs(log_ratio)) %>% 
+  group_by(direction) %>%
+  top_n(10) %>%
+  ungroup() %>%
+  mutate(term = reorder(term, log_ratio)) %>%
+  ggplot(aes(term, log_ratio)) +
+  geom_col() +
+  labs(y = "Log2 ratio of beta in topic 2 / topic 1") +
+  coord_flip()
+```
+
+We can see that the words more common in topic 2 include political parties such as "democratic" and "republican", as well as politician's names such as "dukakis" and "gorbachev". Topic 1 was more characterized by currencies like "yen" and "dollar", as well as financial terms such as "index", "prices" and "rates". This helps confirm that the two topics the algorithm identified were political and financial news.
+
+### Document-topic probabilities
 
 
 
