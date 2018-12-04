@@ -463,6 +463,56 @@ sciwords %>%
   coord_flip()
 ```
 
+## Topic Modeling
+
+**Topic modeling**^[<https://en.wikipedia.org/wiki/Topic_model>] is a method for unsupervised classification of such documents, similar to clustering on numeric data, which finds natural groups of items even when we're not sure what we're looking for. It's a way to find abstract "topics" that occur in a collection of documents, and it's frequently used to find hidden semantic structures in a text body. Topic models can help us understand large collections of unstructured text bodies. In addition to text mining tasks like what we'll do here, topic models have been used to detect useful structures in data such as genetic information, images, and networks, and have also been used in bioinformatics.^[Blei, David (April 2012). "Probabilistic Topic Models". _Communications of the ACM_. 55 (4): 77-84. doi:10.1145/2133806.2133826]
+
+**Latent Dirichlet Allocation**^[<https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation>] is one of the most common algorithms used in topic modeling. LDA treats each document as a mixture of topics, and each topic as a mixture of words:
+
+1. _Each document is a mixture of topics._ Each document contains words from several topics in particular proportions. For example, in a two-topic model we could say "Document 1 is 90% topic A and 10% topic B, while Document 2 is 30% topic A and 70% topic B."
+2. _Every topic is a mixture of words._ Imagine a two-topic model of American news, with one topic for "politics" and one for "entertainment." Common words in the politics topic might be "President", "Congress", and "government", while the entertainment topic may be made up of words such as "movies", "television", and "actor". Words can be shared between topics; a word like "budget" might appear in both equally.
+
+LDA attempts to estimate both of these at the same time: finding words associated with each topic, while simutaneously determining the mixture of topics that describes each document.
+
+### Document-term matrix
+
+Before we can get started in topic modeling we need to take a look at another common format for storing text data that's not the tidy one-token-per-document-per-row format we've used so far (what we get from `unnest_tokens`). Another very common structure that's used by other text mining packages (such as **tm** or **quanteda**) is the **[document-term matrix](https://en.wikipedia.org/wiki/Document-term_matrix)**^[<https://en.wikipedia.org/wiki/Document-term_matrix>] (DTM). This is a matrix where:
+
+- Each row represents one document (such as a book or article).
+- Each column represents one term.
+- Each value contains the number of appearances of that term in that document.
+
+Since most pairings of document and term do not occur (they have the value zero), DTMs are usually implemented as sparse matrices. These objects can be treated as though they were matrices (for example, accessing particular rows and columns), but are stored in a more efficient format. DTM objects can't be used directly with tidy tools, just as tidy data frames can't be used as input for other text mining packages. The tidytext package provides two verbs that convert between the two formats.
+
+- `tidy()` turns a DTM into a tidy data frame. This verb comes from the broom package.
+- `cast()` turns a tidy one-term-per-row data frame into a matrix. tidytext provides three variations of this verb, each converting to a different type of matrix: 
+    - `cast_sparse()`: converts to a sparse matrix from the Matrix package.
+    - `cast_dtm()`: converts to a `DocumentTermMatrix` object from tm.
+    - `cast_dfm()`: converts to a `dfm` object from quanteda.
+
+First let's load the `AssociatedPress` data from the topicmodels package. Take a look. We can see that the `AssociatedPress` data is a DTM with 2,246 documents (AP articles from 1988) and 10,473 terms. The 99% sparsity indicates that the matrix is almost complete made of zeros, i.e., almost all the document-term pairs are zero -- most terms are not used in most documents. If we want to use the typical tidy tools we've used above, we'll use the `tidy()` function to melt this matrix into a tidy one-token-per-document-per-row format. Notice that this only returns the 302,031 non-zero entries.
+
+```{r, results="hide"}
+library(topicmodels)
+data(AssociatedPress)
+AssociatedPress
+tidy(AssociatedPress)
+```
+
+First let's use the `LDA()` function from the topicmodels package, setting `k = 2`, to create a two-topic LDA model. This function returns an object containing the full details of the model fit, such as how words are associated with topics and how topics are associated with documents. Fitting the model is easy. For the rest of this section we'll be exploring and interpreting the model.
+
+```{r ap_lda, cache=TRUE, results="hide"}
+# set a seed so that the output of the model is predictable
+set.seed(1234)
+ap_lda <- LDA(AssociatedPress, k = 2)
+ap_lda
+```
+
+### Word-topic probabilities
+
+
+
+
 
 ## Additional topics
 
