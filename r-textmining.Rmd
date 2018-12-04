@@ -7,7 +7,7 @@ output:
 
 ```{r init, include=F}
 library(knitr)
-opts_chunk$set(message=FALSE, warning=FALSE, eval=TRUE, echo=TRUE, cache=FALSE)
+opts_chunk$set(message=FALSE, warning=FALSE, eval=TRUE, echo=TRUE, cache=TRUE)
 options(digits=3)
 options(max.print=200)
 .ex <- 1 # Track ex numbers w/ hidden var. Increment each ex: `r .ex``r .ex=.ex+1`
@@ -582,13 +582,103 @@ We can see that the words more common in topic 2 include political parties such 
 
 ### Document-topic probabilities
 
+Above we estimated the per-topic-per-word probabilities, $\beta$ ("beta"). LDA also models each document as a mixture of topics. We can examine the per-document-per-topic probabilities, $\gamma$ ("gamma"), with the `matrix = "gamma"` argument to `tidy()`.
+
+```{r}
+ap_documents <- tidy(ap_lda, matrix = "gamma")
+ap_documents
+```
+
+Each of these values is the estimated proportion of words from that document that are generated from that topic. For example, the model estimates that only about `r scales::percent(ap_documents$gamma[1])` of the words in document 1 were generated from topic 1.
+
+We can see that many of these documents were drawn from a mix of the two topics, but that document 6 was drawn almost entirely from topic 2, having a $\gamma$ from topic 1 close to zero. To check this answer, we could `tidy()` the document-term matrix (see Chapter \@ref(tidy-dtm)) and check what the most common words in that document were.
+
+```{r ap_document_6}
+tidy(AssociatedPress) %>%
+  filter(document == 6) %>%
+  arrange(desc(count))
+```
+
+Based on the most common words, this appears to be an article about the relationship between the American government and Panamanian dictator [Manuel Noriega](https://en.wikipedia.org/wiki/Manuel_Noriega), which means the algorithm was right to place it in topic 2 (as political/national news).
+
+## Case Studies & Examples
+
+### The Great Library Heist
+
+>From [section 6.2 of Tidy Text Mining](https://www.tidytextmining.com/topicmodeling.html#library-heist).
+
+When examining a statistical method, it can be useful to try it on a very simple case where you know the "right answer". For example, we could collect a set of documents that definitely relate to four separate topics, then perform topic modeling to see whether the algorithm can correctly distinguish the four groups. This lets us double-check that the method is useful, and gain a sense of how and when it can go wrong. We'll try this with some data from classic literature.
+
+Suppose a vandal has broken into your study and torn apart four of your books:
+
+- *Great Expectations* by Charles Dickens
+- *The War of the Worlds* by H.G. Wells
+- *Twenty Thousand Leagues Under the Sea* by Jules Verne
+- *Pride and Prejudice* by Jane Austen
+
+This vandal has torn the books into individual chapters, and left them in one large pile. How can we restore these disorganized chapters to their original books? This is a challenging problem since the individual chapters are **unlabeled**: we don't know what words might distinguish them into groups. We'll thus use topic modeling to discover how chapters cluster into distinct topics, each of them (presumably) representing one of the books.
+
+We'll retrieve the text of these four books using the gutenbergr package:
+
+```{r titles}
+library(gutenbergr)
+titles <- c("Twenty Thousand Leagues under the Sea", 
+            "The War of the Worlds",
+            "Pride and Prejudice", 
+            "Great Expectations")
+books <- gutenberg_works(title %in% titles) %>%
+  gutenberg_download(meta_fields = "title")
+```
+
+You'll want to start by dividing the books these into chapters, use tidytext's `unnest_tokens()` to separate them into words, then remove `stop_words`. You'll be treating every chapter as a separate "document", each with a name like `Great Expectations_1` or `Pride and Prejudice_11`. You'll cast this into a DTM then run LDA. You'll look at the word-topic probabilities to try to get a sense of which topic represents which book, and you'll use document-topic probabilities to assign chapters to their books. See [section 6.2 of Tidy Text Mining](https://www.tidytextmining.com/topicmodeling.html#library-heist) for code and a walk-through.
+
+### Happy Galentine's Day!
+
+Source: **<https://suzan.rbind.io/2018/02/happy-galentines-day/>**
+
+This analysis does a tidy text mining analysis of several scripts from _Parks and Recreation_. In addition to the kinds of analyses we've performed here, it also illustrates some additional functionality for extracting text from PDF documents (the scripts were only available as PDFs).
+
+![](img/tm-cs1-prec-1.png)
+
+![](img/tm-cs1-prec-2.png)
+
+### Who wrote the anti-Trump New York Times op-ed? 
+
+Source: **<http://varianceexplained.org/r/op-ed-text-analysis/>**
+
+In September 2018 the New York Times published an anonymous op-ed, ["I Am Part of the Resistance Inside the Trump Administration"](https://www.nytimes.com/2018/09/05/opinion/trump-white-house-anonymous-resistance.html), written by a "senior official in the Trump administration". Lots of data scientists tried to use text-mining techniques to determine who wrote this op-ed. This analysis compares the text of the op-ed to the set of documents representing "senior officials." In addition to what we've covered here, this also covers scraping text from Twitter accounts, and methods for comparing TF-IDF vectors using cosine similarity, which was touched on in [section 4.2 of Tidy Text Mining](https://www.tidytextmining.com/ngrams.html#counting-and-correlating-pairs-of-words-with-the-widyr-package).
+
+![](img/tm-cs2-trumpoped.png)
+
+### Seinfeld dialogues
+
+Source: **<https://pradeepadhokshaja.wordpress.com/2018/08/06/looking-at-seinfeld-dialogues-using-tidytext/>**
+
+Data: **<https://www.kaggle.com/thec03u5/seinfeld-chronicles>**
+
+This analysis uses the tidytext package to analyze the full text of the entire _Seinfeld_ series that ran 1989-1998.
+
+![Sentiment across time for Seinfeld main characters.](img/tm-cs3-seinfeld.gif)
+
+### Sentiment analysis in Shakespeare tragedies
+
+Source: **<https://peerchristensen.netlify.com/post/fair-is-foul-and-foul-is-fair-a-tidytext-entiment-analysis-of-shakespeare-s-tragedies/>**
+
+This analysis illustrates a tidytext approach to examine the use of sentiment words in the tragedies written by William Shakespeare. 
+
+![Plays ranked by ratio of negative sentiment words](img/tm-cs4-shake-1.png)
 
 
+![Sentiment over time for Romeo & Juliet](img/tm-cs4-shake-2.png)
 
-## Additional topics
 
-- [Relationships between words: n-grams and correlations](https://www.tidytextmining.com/ngrams.html)
-- [Converting to and from non-tidy formats](https://www.tidytextmining.com/dtm.html)
+### Authorship of the Federalist Papers
+
+Source: **<https://kanishka.xyz/2018/my-first-few-open-source-contributions-authorship-attribution-of-the-federalist-papers/>**
+
+The Federalist Papers were written as essays between 1787-1788 by Alexander Hamilton, John Jay and James Madison to promote the ratification of the constitution. They were all authored under the pseudonym 'Publius', which was a tribute to the founder of the Roman Republic, but were then confirmed to be written by the three authors where Hamilton wrote 51 essays, Jay wrote 5, Madison wrote 14, and Hamilton and Madison co-authored 3. The authorship of the remaining 12 has been in dispute. This post uses tidy text mining and some additional functionality to try to determine who authored the 12 in dispute.
+
+![](img/tm-cs5-fed.png)
 
 <!--
 
@@ -640,3 +730,5 @@ brtidy %>%
 ```
 
 -->
+
+---
