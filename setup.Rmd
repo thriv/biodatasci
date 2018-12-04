@@ -290,6 +290,8 @@ library(prophet)
 ```r
 install.packages("tidytext")
 install.packages("gutenbergr")
+install.packages("tm")
+install.packages("topicmodels")
 ```
 
 To check that these are correctly installed, first close RStudio and then reopen it and run the following:
@@ -297,6 +299,8 @@ To check that these are correctly installed, first close RStudio and then reopen
 ```r
 library(tidytext)
 library(gutenbergr)
+library(tm)
+library(topicmodels)
 ```
 
 
