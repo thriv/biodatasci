@@ -376,10 +376,10 @@ div.tocify {
       <a href="r-rmarkdown.html">Reproducible Research &amp; RMarkdown</a>
     </li>
     <li>
-      <a href="r-stats.html">Essential Statistics with R</a>
+      <a href="r-stats.html">Essential Statistics</a>
     </li>
     <li>
-      <a href="r-survival.html">Survival Analysis with TCGA Data</a>
+      <a href="r-survival.html">Survival Analysis</a>
     </li>
     <li class="dropdown-header">--- Homework ---</li>
     <li>
@@ -628,11 +628,23 @@ library(prophet)</code></pre>
 <li><a href="r-tidy.html">Data tidying with tidyr</a></li>
 <li><a href="r-viz-gapminder.html">Advanced data visualization with ggplot2</a></li>
 </ul>
-<p><strong>Software setup:</strong> Follow instructions above for <a href="#r">R+RStudio+Packages</a> and <a href="#cran-packages">CRAN packages</a>. For this class, you’ll also need several additional packages described below. If you receive an error message when trying to install any particular package, please make note of which one you had trouble with, and <a href="people.html">email me</a> <em>prior to class</em> with the command you typed and the error you received.</p>
-<pre class="r"><code>install.packages(&quot;tidytext&quot;)</code></pre>
+<p><strong>Software setup:</strong> For this class, you’ll need R &gt;= 3.5.0, and several additional packages described below. If you receive an error message when trying to install any particular package, please make note of which one you had trouble with, and <a href="people.html">email me</a> <em>prior to class</em> with the command you typed and the error you received. If you’re not sure which version of R you’re using, run the <code>sessionInfo()</code> command to check. You must use &gt;= 3.5.0 (3.4.x will not work).</p>
+<pre class="r"><code>install.packages(&quot;tidyverse&quot;)
+install.packages(&quot;tidytext&quot;)
+install.packages(&quot;gutenbergr&quot;)
+install.packages(&quot;tm&quot;)
+install.packages(&quot;topicmodels&quot;)</code></pre>
 <p>To check that these are correctly installed, first close RStudio and then reopen it and run the following:</p>
-<pre class="r"><code>library(tidytext)</code></pre>
+<pre class="r"><code>library(tidyverse)
+library(tidytext)
+library(gutenbergr)
+library(tm)
+library(topicmodels)</code></pre>
+<p>Download the <strong><a href="data/austen.csv">austen.csv</a></strong> data we’ll use in class from the <a href="data.html">data</a> page.</p>
 </div>
+</div>
+<div id="not-covered-this-year" class="section level2">
+<h2>Not Covered This Year</h2>
 <div id="rna-seq" class="section level3">
 <h3>RNA-seq</h3>
 <p><strong>Prerequisites!</strong> This is <em>not</em> an introductory R class. <em>This lesson assumes a <a href="r-basics.html">basic familiarity with R</a>, <a href="r-dataframes.html">data frames</a>, <a href="r-dplyr-yeast.html">manipulating data with dplyr and <code>%&gt;%</code></a>, and <a href="r-viz-gapminder.html">data visualization with ggplot2</a>.</em></p>
