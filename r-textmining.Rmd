@@ -357,7 +357,7 @@ Then we simply pipe that to the `bind_tf_idf` function, giving it the column nam
 
 ```{r, results="hide"}
 jatidy %>% 
-  count(book, word, sort=TRUE) %>% 
+  count(word, book, sort=TRUE) %>% 
   bind_tf_idf(word, book, n)
 ```
 
@@ -366,7 +366,7 @@ You'll see that the idf (and the tf-idf) are zero for really common words. These
 
 ```{r}
 jatidy %>% 
-  count(book, word, sort=TRUE) %>% 
+  count(word, book, sort=TRUE) %>% 
   bind_tf_idf(word, book, n) %>% 
   arrange(desc(tf_idf))
 ```
@@ -376,7 +376,7 @@ No surprise - we see all proper nouns, names that are important for each novel. 
 
 ```{r fig.height=8}
 jatidy %>% 
-  count(book, word, sort=TRUE) %>% 
+  count(word, book, sort=TRUE) %>% 
   bind_tf_idf(word, book, n) %>% 
   arrange(desc(tf_idf)) %>% 
   group_by(book) %>% 
