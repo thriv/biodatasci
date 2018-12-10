@@ -403,10 +403,10 @@ Project Gutenberg (<https://www.gutenberg.org/>) is a collection of freely avail
 
 Let's use a different corpus of documents, to see what terms are important in a different set of works. Let's download some classic science texts from Project Gutenberg and see what terms are important in these works, as measured by tf-idf. We'll use three classic physics texts, and a classic Darwin text. Let's use:
 
-- [_Discourse on Floating Bodies_ by Galileo Galilei: <http://www.gutenberg.org/ebooks/37729>
-- [_Treatise on Light_ by Christiaan Huygens: <http://www.gutenberg.org/ebooks/14725>
-- [_Experiments with Alternate Currents of High Potential and High Frequency_ by Nikola Tesla: <http://www.gutenberg.org/ebooks/13476>
-- [_On the Origin of Species By Means of Natural Selection_ by Charles Darwin: <http://www.gutenberg.org/ebooks/5001>
+- _Discourse on Floating Bodies_ by Galileo Galilei: <http://www.gutenberg.org/ebooks/37729>
+- _Treatise on Light_ by Christiaan Huygens: <http://www.gutenberg.org/ebooks/14725>
+- _Experiments with Alternate Currents of High Potential and High Frequency_ by Nikola Tesla: <http://www.gutenberg.org/ebooks/13476>
+- _On the Origin of Species By Means of Natural Selection_ by Charles Darwin: <http://www.gutenberg.org/ebooks/5001>
 
 These might all be physics classics, but they were written across a 300-year timespan, and some of them were first written in other languages and then translated to English. 
 
@@ -582,16 +582,16 @@ We can see that the words more common in topic 2 include political parties such 
 
 ### Document-topic probabilities
 
-Above we estimated the per-topic-per-word probabilities, $\beta$ ("beta"). LDA also models each document as a mixture of topics. We can examine the per-document-per-topic probabilities, $\gamma$ ("gamma"), with the `matrix = "gamma"` argument to `tidy()`.
+Above we estimated the per-topic-per-word probabilities, $\beta$ ("beta"). LDA also models each document as a mixture of topics. Let's look at the per-document-per-topic probabilities, $\gamma$ ("gamma"), with the `matrix = "gamma"` argument to `tidy()`.
 
 ```{r}
 ap_documents <- tidy(ap_lda, matrix = "gamma")
 ap_documents
 ```
 
-Each of these values is the estimated proportion of words from that document that are generated from that topic. For example, the model estimates that only about `r scales::percent(ap_documents$gamma[1])` of the words in document 1 were generated from topic 1.
+These values represent the estimated proportion of words from that document that are generated from that topic. For example, the the model estimates only about `r scales::percent(ap_documents$gamma[1])` of the words in document 1 were generated from topic 1.
 
-We can see that many of these documents were drawn from a mix of the two topics, but that document 6 was drawn almost entirely from topic 2, having a $\gamma$ from topic 1 close to zero. To check this answer, we could `tidy()` the document-term matrix (see Chapter \@ref(tidy-dtm)) and check what the most common words in that document were.
+Most of these documents were drawn from a mix of the two topics, but document 6 was drawn almost entirely from topic 2, having a $\gamma$ from topic 1 close to zero. To check this answer, we could `tidy()` the document-term matrix.
 
 ```{r ap_document_6}
 tidy(AssociatedPress) %>%
@@ -599,7 +599,7 @@ tidy(AssociatedPress) %>%
   arrange(desc(count))
 ```
 
-Based on the most common words, this appears to be an article about the relationship between the American government and Panamanian dictator [Manuel Noriega](https://en.wikipedia.org/wiki/Manuel_Noriega), which means the algorithm was right to place it in topic 2 (as political/national news).
+Based on the most common words, this looks like an article about the relationship between the American government and Panamanian dictator [Manuel Noriega](https://en.wikipedia.org/wiki/Manuel_Noriega), which means the algorithm was right to place it in topic 2 (as political/national news).
 
 ## Case Studies & Examples
 
