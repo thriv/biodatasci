@@ -756,30 +756,30 @@ get_sentiments(&quot;afinn&quot;)</code></pre>
   count(book, word, sort=TRUE)</code></pre>
 <p>Then we simply pipe that to the <code>bind_tf_idf</code> function, giving it the column names for the word, document, and count column (<code>word</code>, <code>book</code>, and <code>n</code> here):</p>
 <pre class="r"><code>jatidy %&gt;% 
-  count(book, word, sort=TRUE) %&gt;% 
+  count(word, book, sort=TRUE) %&gt;% 
   bind_tf_idf(word, book, n)</code></pre>
 <p>You’ll see that the idf (and the tf-idf) are zero for really common words. These are all words that appear in all six of Jane Austen’s novels, so the idf is zero. This is how this approach decreases the weight for common words. The inverse document frequency will be a higher number for words that occur in fewer of the documents in the collection. Let’s arrange descending by tf-idf (<code>tf_idf</code> with an underscore).</p>
 <pre class="r"><code>jatidy %&gt;% 
-  count(book, word, sort=TRUE) %&gt;% 
+  count(word, book, sort=TRUE) %&gt;% 
   bind_tf_idf(word, book, n) %&gt;% 
   arrange(desc(tf_idf))</code></pre>
 <pre><code>## # A tibble: 40,379 x 6
-##    book                word          n      tf   idf  tf_idf
-##    &lt;chr&gt;               &lt;chr&gt;     &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
-##  1 Sense &amp; Sensibility elinor      623 0.00519  1.79 0.00931
-##  2 Sense &amp; Sensibility marianne    492 0.00410  1.79 0.00735
-##  3 Mansfield Park      crawford    493 0.00307  1.79 0.00551
-##  4 Pride &amp; Prejudice   darcy       373 0.00305  1.79 0.00547
-##  5 Persuasion          elliot      254 0.00304  1.79 0.00544
-##  6 Emma                emma        786 0.00488  1.10 0.00536
-##  7 Northanger Abbey    tilney      196 0.00252  1.79 0.00452
-##  8 Emma                weston      389 0.00242  1.79 0.00433
-##  9 Pride &amp; Prejudice   bennet      294 0.00241  1.79 0.00431
-## 10 Persuasion          wentworth   191 0.00228  1.79 0.00409
+##    word      book                    n      tf   idf  tf_idf
+##    &lt;chr&gt;     &lt;chr&gt;               &lt;int&gt;   &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+##  1 elinor    Sense &amp; Sensibility   623 0.00519  1.79 0.00931
+##  2 marianne  Sense &amp; Sensibility   492 0.00410  1.79 0.00735
+##  3 crawford  Mansfield Park        493 0.00307  1.79 0.00551
+##  4 darcy     Pride &amp; Prejudice     373 0.00305  1.79 0.00547
+##  5 elliot    Persuasion            254 0.00304  1.79 0.00544
+##  6 emma      Emma                  786 0.00488  1.10 0.00536
+##  7 tilney    Northanger Abbey      196 0.00252  1.79 0.00452
+##  8 weston    Emma                  389 0.00242  1.79 0.00433
+##  9 bennet    Pride &amp; Prejudice     294 0.00241  1.79 0.00431
+## 10 wentworth Persuasion            191 0.00228  1.79 0.00409
 ## # ... with 40,369 more rows</code></pre>
 <p>No surprise - we see all proper nouns, names that are important for each novel. None of them occur in all of novels, and they are important, characteristic words for each text within the entire corpus of Jane Austen’s novels. Let’s visualize this data!</p>
 <pre class="r"><code>jatidy %&gt;% 
-  count(book, word, sort=TRUE) %&gt;% 
+  count(word, book, sort=TRUE) %&gt;% 
   bind_tf_idf(word, book, n) %&gt;% 
   arrange(desc(tf_idf)) %&gt;% 
   group_by(book) %&gt;% 
@@ -805,10 +805,10 @@ get_sentiments(&quot;afinn&quot;)</code></pre>
 </ul>
 <p>Let’s use a different corpus of documents, to see what terms are important in a different set of works. Let’s download some classic science texts from Project Gutenberg and see what terms are important in these works, as measured by tf-idf. We’ll use three classic physics texts, and a classic Darwin text. Let’s use:</p>
 <ul>
-<li>[<em>Discourse on Floating Bodies</em> by Galileo Galilei: <a href="http://www.gutenberg.org/ebooks/37729" class="uri">http://www.gutenberg.org/ebooks/37729</a></li>
-<li>[<em>Treatise on Light</em> by Christiaan Huygens: <a href="http://www.gutenberg.org/ebooks/14725" class="uri">http://www.gutenberg.org/ebooks/14725</a></li>
-<li>[<em>Experiments with Alternate Currents of High Potential and High Frequency</em> by Nikola Tesla: <a href="http://www.gutenberg.org/ebooks/13476" class="uri">http://www.gutenberg.org/ebooks/13476</a></li>
-<li>[<em>On the Origin of Species By Means of Natural Selection</em> by Charles Darwin: <a href="http://www.gutenberg.org/ebooks/5001" class="uri">http://www.gutenberg.org/ebooks/5001</a></li>
+<li><em>Discourse on Floating Bodies</em> by Galileo Galilei: <a href="http://www.gutenberg.org/ebooks/37729" class="uri">http://www.gutenberg.org/ebooks/37729</a></li>
+<li><em>Treatise on Light</em> by Christiaan Huygens: <a href="http://www.gutenberg.org/ebooks/14725" class="uri">http://www.gutenberg.org/ebooks/14725</a></li>
+<li><em>Experiments with Alternate Currents of High Potential and High Frequency</em> by Nikola Tesla: <a href="http://www.gutenberg.org/ebooks/13476" class="uri">http://www.gutenberg.org/ebooks/13476</a></li>
+<li><em>On the Origin of Species By Means of Natural Selection</em> by Charles Darwin: <a href="http://www.gutenberg.org/ebooks/5001" class="uri">http://www.gutenberg.org/ebooks/5001</a></li>
 </ul>
 <p>These might all be physics classics, but they were written across a 300-year timespan, and some of them were first written in other languages and then translated to English.</p>
 <pre class="r"><code>library(gutenbergr)
@@ -967,7 +967,7 @@ ap_topics %&gt;%
 </div>
 <div id="document-topic-probabilities" class="section level3">
 <h3>Document-topic probabilities</h3>
-<p>Above we estimated the per-topic-per-word probabilities, <span class="math inline">\(\beta\)</span> (“beta”). LDA also models each document as a mixture of topics. We can examine the per-document-per-topic probabilities, <span class="math inline">\(\gamma\)</span> (“gamma”), with the <code>matrix = &quot;gamma&quot;</code> argument to <code>tidy()</code>.</p>
+<p>Above we estimated the per-topic-per-word probabilities, <span class="math inline">\(\beta\)</span> (“beta”). LDA also models each document as a mixture of topics. Let’s look at the per-document-per-topic probabilities, <span class="math inline">\(\gamma\)</span> (“gamma”), with the <code>matrix = &quot;gamma&quot;</code> argument to <code>tidy()</code>.</p>
 <pre class="r"><code>ap_documents &lt;- tidy(ap_lda, matrix = &quot;gamma&quot;)
 ap_documents</code></pre>
 <pre><code>## # A tibble: 4,492 x 3
@@ -984,8 +984,8 @@ ap_documents</code></pre>
 ##  9        9     1 0.967   
 ## 10       10     1 0.147   
 ## # ... with 4,482 more rows</code></pre>
-<p>Each of these values is the estimated proportion of words from that document that are generated from that topic. For example, the model estimates that only about 24.8% of the words in document 1 were generated from topic 1.</p>
-<p>We can see that many of these documents were drawn from a mix of the two topics, but that document 6 was drawn almost entirely from topic 2, having a <span class="math inline">\(\gamma\)</span> from topic 1 close to zero. To check this answer, we could <code>tidy()</code> the document-term matrix (see Chapter @ref(tidy-dtm)) and check what the most common words in that document were.</p>
+<p>These values represent the estimated proportion of words from that document that are generated from that topic. For example, the the model estimates only about 24.8% of the words in document 1 were generated from topic 1.</p>
+<p>Most of these documents were drawn from a mix of the two topics, but document 6 was drawn almost entirely from topic 2, having a <span class="math inline">\(\gamma\)</span> from topic 1 close to zero. To check this answer, we could <code>tidy()</code> the document-term matrix.</p>
 <pre class="r"><code>tidy(AssociatedPress) %&gt;%
   filter(document == 6) %&gt;%
   arrange(desc(count))</code></pre>
@@ -1003,7 +1003,7 @@ ap_documents</code></pre>
 ##  9        6 panamanian         5
 ## 10        6 american           4
 ## # ... with 277 more rows</code></pre>
-<p>Based on the most common words, this appears to be an article about the relationship between the American government and Panamanian dictator <a href="https://en.wikipedia.org/wiki/Manuel_Noriega">Manuel Noriega</a>, which means the algorithm was right to place it in topic 2 (as political/national news).</p>
+<p>Based on the most common words, this looks like an article about the relationship between the American government and Panamanian dictator <a href="https://en.wikipedia.org/wiki/Manuel_Noriega">Manuel Noriega</a>, which means the algorithm was right to place it in topic 2 (as political/national news).</p>
 </div>
 </div>
 <div id="case-studies-examples" class="section level2">
