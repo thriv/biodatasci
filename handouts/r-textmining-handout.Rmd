@@ -4,6 +4,8 @@ output:
   pdf_document: 
     fig_height: 3.5
     fig_width: 6.5
+fontsize: 10pt
+geometry: margin=.8in
 ---
 
 ```{r setup, include=FALSE, eval=FALSE}
@@ -45,6 +47,8 @@ There are a few major caveats to be aware of.
 1. Methods based on unigrams (single words) do not take into account qualifiers before a word, such as in "no good" or "not true". If you have sustained sections of sarcasm or negated text, this could be problematic.
 1. The size of the chunk of text that we use to add up single-word sentiment scores matters. Sentiment across many paragraphs often has positive and negative sentiment averaging out to about zero, but sentence-sized or paragraph-sized text might be better.
 
+![Workflow for text mining & sentiment analysis using tidy principles.](../img/tidytext-2-sentiment.png){height=2in}
+
 ## Word and Document Frequencies
 
 In text mining we're trying to get at "what is this text about?" We can start to get a sense of this by looking at the words that make up the text, and we can start to measure measure how important a word is by its **term frequency** (tf), how frequently a word occurs in a document. When we did this we saw some common words in the English language, so we took an approach to filter out our data first by a list of common stop words.
@@ -53,11 +57,22 @@ Another way is to look at a term's **inverse document frequency** (idf), which d
 
 $$idf(\text{term}) = \ln{\left(\frac{n_{\text{documents}}}{n_{\text{documents containing term}}}\right)}$$
 
-If you multiply the two values together, you get the **tf-idf**^[<https://en.wikipedia.org/wiki/Tf%E2%80%93idf>], which is the frequency of a term adjusted for how rarely it is used. The tf-idf measures how important a word is to a document in a collection (or corpus) of documents, for example, to one novel in a collection of novels or to one website in a collection of websites. 
+If you multiply the two values together, you get the **tf-idf**^[<https://en.wikipedia.org/wiki/Tf-idf>], which is the frequency of a term adjusted for how rarely it is used. The tf-idf measures how important a word is to a document in a collection (or corpus) of documents, for example, to one novel in a collection of novels or to one website in a collection of websites. 
 
 We want to use tf-idf to find the important words for the content of each document by decreasing the weight for common words and increasing the weight for words that are not used very much in a corpus of documents (in this case, the group of Jane Austen's novels). Calculating tf-idf attempts to find the words that are important (i.e., common) in a text, but not *too* common. 
 
 You could do this all manually, but there's a nice function in the tidytext package called `bind_tf_idf` that does this for you. It takes a tidy text dataset as input with one row per word, per document. One column (`word` here) contains the terms/tokens, one column contains the documents (`book` in this case), and the last necessary column contains the counts, how many times each document contains each term (`n` in this example).
+
+**Project Gutenberg** (<https://www.gutenberg.org/>) is a collection of freely available books in the public domain. The **gutenbergr**^[<https://cran.r-project.org/web/packages/gutenbergr/vignettes/intro.html>] package includes tools for finding and downloading books. We're going to download some classic science texts from Project Gutenberg and see what terms are important in these works, as measured by tf-idf. We'll use three classic physics texts, and a classic Darwin text. Let's use:
+
+\small
+
+- _Discourse on Floating Bodies_ by Galileo Galilei: <http://www.gutenberg.org/ebooks/37729>
+- _Treatise on Light_ by Christiaan Huygens: <http://www.gutenberg.org/ebooks/14725>
+- _Experiments with Alternate Currents of High Potential and High Frequency_ by Nikola Tesla: <http://www.gutenberg.org/ebooks/13476>
+- _On the Origin of Species By Means of Natural Selection_ by Charles Darwin: <http://www.gutenberg.org/ebooks/5001>
+
+\normalsize
 
 ## Topic Modeling
 
@@ -70,9 +85,7 @@ You could do this all manually, but there's a nice function in the tidytext pack
 
 LDA attempts to estimate both of these at the same time: finding words associated with each topic, while simutaneously determining the mixture of topics that describes each document.
 
-### Document-term matrix
-
-Before we can get started in topic modeling we need to take a look at another common format for storing text data that's not the tidy one-token-per-document-per-row format we've used so far (what we get from `unnest_tokens`). Another very common structure that's used by other text mining packages (such as **tm** or **quanteda**) is the **[document-term matrix](https://en.wikipedia.org/wiki/Document-term_matrix)**^[<https://en.wikipedia.org/wiki/Document-term_matrix>] (DTM). This is a matrix where:
+**Document-term matrix**: Before we can get started in topic modeling we need to take a look at another common format for storing text data that's not the tidy one-token-per-document-per-row format we've used so far (what we get from `unnest_tokens`). Another very common structure that's used by other text mining packages (such as **tm** or **quanteda**) is the **[document-term matrix](https://en.wikipedia.org/wiki/Document-term_matrix)**^[<https://en.wikipedia.org/wiki/Document-term_matrix>] (DTM). This is a matrix where:
 
 - Each row represents one document (such as a book or article).
 - Each column represents one term.
@@ -86,10 +99,3 @@ Since most pairings of document and term do not occur (they have the value zero)
     - `cast_dtm()`: converts to a `DocumentTermMatrix` object from tm.
     - `cast_dfm()`: converts to a `dfm` object from quanteda.
 
-
-\newpage
-
-![Workflow for text analysis using tidy principles.](../img/tidytext-1-overview.png)
-
-
-![Workflow for sentiment analysis using tidy principles.](../img/tidytext-2-sentiment.png)
